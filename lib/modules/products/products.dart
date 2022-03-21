@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
 import 'package:mediica_zone/modules/categories/categories.dart';
+import 'package:mediica_zone/modules/deals/deals.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 import 'package:mediica_zone/shared/styles/colors.dart';
@@ -88,7 +89,10 @@ class ProductsScreen extends StatelessWidget {
                   Container(
                     height: 100,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        HomeCubit.get(context).changeBottomNav(1);
+                      },
+                      highlightColor: Colors.blue,
                       child: ListView.separated(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -182,7 +186,7 @@ class ProductsScreen extends StatelessWidget {
                     children: [
                       if (model.discountPrice != null)
                         Text(
-                          "${model.discountPrice}",
+                          "${model.discountPrice}\$",
                           style: TextStyle(
                               fontSize: 15.0,
                               color: Colors.blue,
@@ -193,7 +197,7 @@ class ProductsScreen extends StatelessWidget {
                       ),
 
                       Text(
-                        "${model.sellingPrice}",
+                        "${model.sellingPrice}\$",
                         style: TextStyle(
                             decoration: model.discountPrice != null
                                 ? TextDecoration.lineThrough
