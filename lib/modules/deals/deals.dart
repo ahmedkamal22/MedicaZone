@@ -2,6 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
@@ -42,11 +43,11 @@ class DealsScreen extends StatelessWidget {
                     height: 120,
                   ),
                   Container(
-                    color: Colors.yellow,
+                    color: Colors.blue,
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
                       "Express",
-                      style: TextStyle(color: Colors.black, fontSize: 14.0),
+                      style: TextStyle(color: Colors.white, fontSize: 14.0),
                     ),
                   ),
                 ],
@@ -56,7 +57,7 @@ class DealsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${model.productNameEn}",
+                  "${model.productNameEn!.toUpperCase()}",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -64,30 +65,52 @@ class DealsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "${model.sellingPrice}",
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
                     if (model.discountPrice != null)
                       Text(
                         "${model.discountPrice}",
                         style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontSize: 13.0,
-                            color: Colors.grey),
+                            fontSize: 15.0,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold),
                       ),
+                    SizedBox(
+                      width: 10,
+                    ),
+
+                    Text(
+                      "${model.sellingPrice}",
+                      style: TextStyle(
+                          decoration: model.discountPrice != null
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          fontSize: model.discountPrice != null ? 13.0 : 15.0,
+                          color: model.discountPrice != null
+                              ? Colors.grey
+                              : Colors.blue),
+                    ),
+
+                    // if (model.sellingPrice != null)
+                    //   Text(
+                    //     "${model.discountPrice}",
+                    //     style: TextStyle(
+                    //         fontSize: 15.0,
+                    //         color: Colors.blue,
+                    //         fontWeight: FontWeight.bold),
+                    //   ),
                     Spacer(),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // HomeCubit.get(context)
+                          //     .changeFavourites(productsModel.id);
+                          // print(productsModel.id);
+                        },
                         icon: CircleAvatar(
                           radius: 15,
                           backgroundColor: Colors.grey[400],
+                          // HomeCubit.get(context)
+                          //         .favourites[productsModel.id]!
+                          //     ? Colors.blue
+                          //     : Colors.grey[400],
                           child: Icon(
                             Icons.favorite_border_outlined,
                             size: 14.0,

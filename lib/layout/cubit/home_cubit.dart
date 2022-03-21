@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
+import 'package:mediica_zone/models/search/search_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
+import 'package:mediica_zone/shared/components/components.dart';
 
 import '../../models/categories/categories_model.dart';
 import '../../models/deals/deals.dart';
@@ -48,7 +50,7 @@ class HomeCubit extends Cubit<HomeStates> {
   ];
   int currentIndex = 0;
 
-  void changeBottomNav(int index) {
+  changeBottomNav(int index) {
     currentIndex = index;
     emit(HomeChangeBottomNavState());
   }
@@ -87,7 +89,7 @@ class HomeCubit extends Cubit<HomeStates> {
       categoriesModel = CategoriesModel.fromJson(value.data);
       emit(CategoriesSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      showFullText(error.toString());
       emit(CategoriesFailureState(error.toString()));
     });
   }
@@ -103,5 +105,12 @@ class HomeCubit extends Cubit<HomeStates> {
       print(error.toString());
       emit(DealsFailureState(error.toString()));
     });
+  }
+
+  SearchModel? searchModel;
+
+  void getSearch({String? text}) {
+    emit(SearchLoadingState());
+    DioHelper.getData(url: SEARCH, query: {"word": text});
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../layout/cubit/home_cubit.dart';
+import '../../layout/cubit/home_states.dart';
 import '../../shared/components/components.dart';
 import '../../shared/cubit/app_cubit.dart';
-import 'cubit/search_cubit.dart';
-import 'cubit/search_states.dart';
 
 class SearchScreen extends StatelessWidget {
   var searchController = TextEditingController();
@@ -13,11 +13,11 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => SearchCubit(),
-      child: BlocConsumer<SearchCubit, SearchStates>(
+      create: (BuildContext context) => HomeCubit(),
+      child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = SearchCubit.get(context);
+          var cubit = HomeCubit.get(context);
           return Scaffold(
             appBar: AppBar(),
             body: Form(
@@ -37,11 +37,11 @@ class SearchScreen extends StatelessWidget {
                         }
                         return null;
                       },
-                      onChange: (String text) {
-                        // SearchCubit.get(context).searchProducts(text);
+                      onChange: (value) {
+                        cubit.getSearch(text: value);
                       },
                       // onSubmit: (String text) {
-                      //   SearchCubit.get(context).searchProducts(text);
+                      //   HomeCubit.get(context).searchProducts(text);
                       // },
                       style: TextStyle(
                           color: AppCubit.get(context).isDark
@@ -55,24 +55,21 @@ class SearchScreen extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    // if (state is SearchSuccessState)
-                    //   Expanded(
-                    //     child: ListView.separated(
-                    //         physics: BouncingScrollPhysics(),
-                    //         itemBuilder: (context, index) => buildProductsItem(
-                    //             SearchCubit.get(context)
-                    //                 .searchModel!
-                    //                 .data!
-                    //                 .data![index],
-                    //             context,
-                    //             oldPrice: false),
-                    //         separatorBuilder: (context, index) => myDivider(),
-                    //         itemCount: SearchCubit.get(context)
-                    //             .searchModel!
-                    //             .data!
-                    //             .data!
-                    //             .length),
-                    //   )
+                    if (state is SearchSuccessState)
+                      Expanded(
+                        child: ListView.separated(
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => buildProductsItem(
+                                HomeCubit.get(context)
+                                    .searchModel!
+                                    .data![index],
+                                context),
+                            separatorBuilder: (context, index) => myDivider(),
+                            itemCount: HomeCubit.get(context)
+                                .searchModel!
+                                .data!
+                                .length),
+                      ),
                   ],
                 ),
               ),

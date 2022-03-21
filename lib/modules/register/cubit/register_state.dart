@@ -1,22 +1,21 @@
-// import 'package:medica_zone/models/login/login_model.dart';
-//
-// abstract class MedicaRegisterStates {}
-//
-// class MedicaRegisterInitialState extends MedicaRegisterStates {}
-//
-// class MedicaRegisterLoadingState extends MedicaRegisterStates {}
-//
-// class MedicaRegisterSuccessState extends MedicaRegisterStates {
-//   LoginModel loginModel;
-//
-//   MedicaRegisterSuccessState(this.loginModel);
-// }
-//
-// class MedicaRegisterFailureState extends MedicaRegisterStates {
-//   final String error;
-//
-//   MedicaRegisterFailureState(this.error);
-// }
-//
-// class MedicaRegisterChangePasswordVisibilityState extends MedicaRegisterStates {
-// }
+import '../../../models/login/login_model.dart';
+
+abstract class RegisterStates {}
+
+class RegisterInitialState extends RegisterStates {}
+
+class RegisterLoadingState extends RegisterStates {}
+
+class RegisterSuccessState extends RegisterStates {
+  LoginModel loginModel;
+
+  RegisterSuccessState(this.loginModel);
+}
+
+class RegisterFailureState extends RegisterStates {
+  final String error;
+
+  RegisterFailureState(this.error);
+}
+
+class RegisterChangePasswordVisibilityState extends RegisterStates {}

@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
+import 'package:mediica_zone/modules/categories/categories.dart';
+import 'package:mediica_zone/shared/components/components.dart';
+import 'package:mediica_zone/shared/cubit/app_cubit.dart';
+import 'package:mediica_zone/shared/styles/colors.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
@@ -83,15 +87,18 @@ class ProductsScreen extends StatelessWidget {
                   ),
                   Container(
                     height: 100,
-                    child: ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) => buildCategories(
-                            categoriesModel.allData!.data[index]),
-                        separatorBuilder: (context, index) =>
-                            SizedBox(width: 10.0),
-                        itemCount: categoriesModel.allData!.data.length),
+                    child: InkWell(
+                      onTap: () {},
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) => buildCategories(
+                              categoriesModel.data!.data[index], context),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 10.0),
+                          itemCount: categoriesModel.data!.data.length),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -111,42 +118,48 @@ class ProductsScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 1,
                   mainAxisSpacing: 1,
-                  childAspectRatio: 1 / 1.6,
+                  childAspectRatio: 1 / 1.32,
                   children: List.generate(
                     homeModel.allData!.data!.length,
-                    (index) => buildProducts(homeModel.allData!.data![index]),
+                    (index) =>
+                        buildProducts(homeModel.allData!.data![index], context),
                   ),
                 ))
           ],
         ),
       );
 
-  Widget buildProducts(HomeData model) => Container(
-        color: Colors.white,
+  Widget buildProducts(HomeData model, context) => Container(
+        color: AppCubit.get(context).isDark ? color : Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               alignment: Alignment.bottomLeft,
               children: [
-                Image(
-                  image: NetworkImage(
-                    "http://medicazone.online/${model.productThambnail}",
+                Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Container(
+                    color: Colors.white,
+                    child: Image(
+                      image: NetworkImage(
+                        "http://medicazone.online/${model.productThambnail}",
+                      ),
+                      width: double.infinity,
+                      height: 120,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                  width: double.infinity,
-                  height: 200,
-                  fit: BoxFit.contain,
                 ),
-                // if (brand.)
-                //   Container(
-                //     color: Colors.red,
-                //     padding:
-                //     EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-                //     child: Text(
-                //       "Discount",
-                //       style: TextStyle(color: Colors.white, fontSize: 11.0),
-                //     ),
-                //   ),
+                if (model.discountPrice != null)
+                  Container(
+                    color: Colors.lightBlue,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      "Discount",
+                      style: TextStyle(color: Colors.white, fontSize: 14.0),
+                    ),
+                  )
               ],
             ),
             Padding(
@@ -154,35 +167,51 @@ class ProductsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "${model.productNameEn}",
+                    "${model.productNameEn!.toUpperCase()}",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
+                        color: AppCubit.get(context).isDark
+                            ? Colors.white
+                            : Colors.black,
                         fontSize: 15.0,
                         height: 1.3,
                         fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: [
-                      Text(
-                        "${model.sellingPrice}",
-                        style: TextStyle(
-                            fontSize: 13.0,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      // if (productsModel.discount != 0)
                       if (model.discountPrice != null)
                         Text(
                           "${model.discountPrice}",
                           style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: 11.0,
-                              color: Colors.grey),
+                              fontSize: 15.0,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold),
                         ),
+                      SizedBox(
+                        width: 10,
+                      ),
+
+                      Text(
+                        "${model.sellingPrice}",
+                        style: TextStyle(
+                            decoration: model.discountPrice != null
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            fontSize: model.discountPrice != null ? 13.0 : 15.0,
+                            color: model.discountPrice != null
+                                ? Colors.grey
+                                : Colors.blue),
+                      ),
+
+                      // if (model.sellingPrice != null)
+                      //   Text(
+                      //     "${model.discountPrice}",
+                      //     style: TextStyle(
+                      //         fontSize: 15.0,
+                      //         color: Colors.blue,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
                       Spacer(),
                       IconButton(
                           onPressed: () {
@@ -212,22 +241,19 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategories(CatData model) => Stack(
+  Widget buildCategories(CategoriesData model, context) => Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          // Container(
-          //   height: 100,
-          //   width: 100,
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(10),
-          //       image: DecorationImage(
-          //         image: NetworkImage("http://medicazone.online/${model.categoryIcon}"),
-          //         fit: BoxFit.cover,
-          //       )),
-          // ),,
-          CircleAvatar(
-            radius: 10,
-            child: Icon(model.categoryIcon),
+          Container(
+            height: 80,
+            width: 100,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg"),
+                  fit: BoxFit.cover,
+                )),
           ),
           Container(
             color: Colors.black.withOpacity(.8),
@@ -237,9 +263,10 @@ class ProductsScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                  ),
             ),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../modules/search/search.dart';
+import '../shared/components/components.dart';
 import '../shared/cubit/app_cubit.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_states.dart';
@@ -18,7 +20,7 @@ class Home extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {
-                      // navigateTo(context, SearchScreen());
+                      navigateTo(context, SearchScreen());
                     },
                     icon: Icon(Icons.search)),
                 IconButton(

@@ -1,20 +1,20 @@
 class CategoriesModel {
   bool? status;
   String? message;
-  AllData? allData;
+  Data? data;
 
-  CategoriesModel({this.status, this.message, this.allData});
+  CategoriesModel({this.status, this.message, this.data});
 
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    allData = json['data'] != null ? AllData.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
-class AllData {
+class Data {
   int? currentPage;
-  List<CatData> data = [];
+  List<CategoriesData> data = [];
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -27,11 +27,11 @@ class AllData {
   int? to;
   int? total;
 
-  AllData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
 
     json['data'].forEach((v) {
-      data.add(CatData.fromJson(v));
+      data.add(CategoriesData.fromJson(v));
     });
 
     firstPageUrl = json['first_page_url'];
@@ -52,7 +52,7 @@ class AllData {
   }
 }
 
-class CatData {
+class CategoriesData {
   int? id;
   String? categoryNameEn;
   String? categoryNameAr;
@@ -62,7 +62,7 @@ class CatData {
   String? createdAt;
   String? updatedAt;
 
-  CatData.fromJson(Map<String, dynamic> json) {
+  CategoriesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     categoryNameEn = json['category_name_en'];
     categoryNameAr = json['category_name_ar'];

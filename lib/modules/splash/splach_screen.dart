@@ -22,13 +22,13 @@ class SplashScreen extends StatelessWidget {
       ),
       OnBoadringModel(
         image:
-            "https://lawfulrebel.com/wp-content/uploads/2017/09/Thinking-Image-10.jpg",
-        title: "Discover the best medicine tools",
+            "https://www.vapulus.com/en/wp-content/uploads/2019/04/Payment-Methods-for-e-commerce.png",
+        title: "Choose your payment method ",
       ),
       OnBoadringModel(
         image:
-            "https://www.vapulus.com/en/wp-content/uploads/2019/04/Payment-Methods-for-e-commerce.png",
-        title: "Choose your appropriate payment method ",
+            "https://lawfulrebel.com/wp-content/uploads/2017/09/Thinking-Image-10.jpg",
+        title: "Discover the best medicine tools",
       ),
     ];
     var boardController = PageController();
@@ -65,10 +65,10 @@ class SplashScreen extends StatelessWidget {
                     },
                     child: Text(
                       "Skip Intro",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black.withOpacity(.4)),
                     )),
               ],
             ),
@@ -143,18 +143,13 @@ class SplashScreen extends StatelessWidget {
           Text(
             "${model.title}",
             style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  fontSize: 25.0,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.normal,
                 ),
           ),
           SizedBox(
             height: 15,
           ),
-          // Text(
-          //   "${model.body}",
-          //   style: Theme.of(context).textTheme.bodyText1!.copyWith(
-          //         fontSize: 14.0,
-          //       ),
-          // ),
           SizedBox(
             height: 20,
           ),

@@ -17,47 +17,10 @@ class CategoriesScreen extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return ListView.separated(
             itemBuilder: (context, index) => buildCategoriesItems(
-                cubit.categoriesModel!.allData!.data[index], context),
+                cubit.categoriesModel!.data!.data[index], context),
             separatorBuilder: (context, index) => myDivider(),
-            itemCount: cubit.categoriesModel!.allData!.data.length);
+            itemCount: cubit.categoriesModel!.data!.data.length);
       },
     );
   }
-
-  Widget buildCategoriesItems(CatData models, context) => Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            // Container(
-            //   height: 120,
-            //   width: 120,
-            //   decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(10),
-            //       image: DecorationImage(
-            //         image: NetworkImage("${models.categoryIcon}"),
-            //         fit: BoxFit.cover,
-            //       )),
-            // ),
-            // CircleAvatar(
-            //   radius: 10,
-            //   child: Icon(models.categoryIcon),
-            // ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Text(
-                "${models.categoryNameEn}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 20.0,
-                    ),
-              ),
-            ),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios_outlined, color: Colors.blueAccent),
-          ],
-        ),
-      );
 }

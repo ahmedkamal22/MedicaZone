@@ -47,3 +47,15 @@ class SliderFailureState extends HomeStates {
 
   SliderFailureState(this.error);
 }
+
+class SearchLoadingState extends HomeStates {}
+
+class SearchSuccessState extends HomeStates {
+  SearchSuccessState();
+}
+
+class SearchFailureState extends HomeStates {
+  final String error;
+
+  SearchFailureState(this.error);
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mediica_zone/models/categories/categories_model.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../modules/login/login.dart';
@@ -85,12 +86,12 @@ void showToast({
       fontSize: 16.0);
 }
 
-enum ToastStates { SUCESS, FAILURE, WARNING }
+enum ToastStates { SUCCESS, FAILURE, WARNING }
 
 Color identifyColor(ToastStates states) {
   Color color;
   switch (states) {
-    case ToastStates.SUCESS:
+    case ToastStates.SUCCESS:
       color = Colors.green;
       break;
     case ToastStates.FAILURE:
@@ -215,5 +216,39 @@ Widget buildProductsItem(model, context, {bool oldPrice = true}) => Padding(
             ),
           ],
         ),
+      ),
+    );
+
+Widget buildCategoriesItems(CategoriesData models, context) => Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg"),
+                  fit: BoxFit.cover,
+                )),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              "${models.categoryNameEn!.toUpperCase()}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: 17.0,
+                  ),
+            ),
+          ),
+          Spacer(),
+          Icon(Icons.arrow_forward_ios_outlined, color: Colors.blueAccent),
+        ],
       ),
     );
