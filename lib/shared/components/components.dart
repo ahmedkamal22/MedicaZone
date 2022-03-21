@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mediica_zone/models/categories/categories_model.dart';
+import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../modules/login/login.dart';

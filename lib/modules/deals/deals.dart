@@ -67,7 +67,7 @@ class DealsScreen extends StatelessWidget {
                   children: [
                     if (model.discountPrice != null)
                       Text(
-                        "${model.discountPrice}",
+                        "${model.discountPrice}\$",
                         style: TextStyle(
                             fontSize: 15.0,
                             color: Colors.blue,
@@ -78,7 +78,7 @@ class DealsScreen extends StatelessWidget {
                     ),
 
                     Text(
-                      "${model.sellingPrice}",
+                      "${model.sellingPrice}\$",
                       style: TextStyle(
                           decoration: model.discountPrice != null
                               ? TextDecoration.lineThrough
