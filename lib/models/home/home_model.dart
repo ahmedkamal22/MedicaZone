@@ -85,6 +85,8 @@ class HomeData {
   int? status;
   String? createdAt;
   String? updatedAt;
+  int? adminsId;
+  int? rate;
   Brand? brand;
   Category? category;
 
@@ -120,6 +122,8 @@ class HomeData {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    adminsId = json['admins_id'];
+    rate = json['rate'];
     brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
