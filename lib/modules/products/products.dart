@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
 import 'package:mediica_zone/modules/categories/categories.dart';
 import 'package:mediica_zone/modules/deals/deals.dart';
+import 'package:mediica_zone/modules/product_details/product_details.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 import 'package:mediica_zone/shared/styles/colors.dart';
@@ -95,7 +96,7 @@ class ProductsScreen extends StatelessWidget {
                       onTap: () {
                         HomeCubit.get(context).changeBottomNav(1);
                       },
-                      highlightColor: Colors.blue,
+                      highlightColor: Colors.grey[300],
                       child: ListView.separated(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -123,13 +124,15 @@ class ProductsScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 1,
-                  childAspectRatio: 1 / 1.57,
+                  childAspectRatio: 1 / 1.56,
                   children: List.generate(
                     homeModel.allData!.data!.length,
-                    (index) =>
-                        buildProducts(homeModel.allData!.data![index], context),
+                    (index) => InkWell(
+                        onTap: () {
+                          navigateTo(context, ProductDetails());
+                        },
+                        child: buildProducts(
+                            homeModel.allData!.data![index], context)),
                   ),
                 ))
           ],
@@ -180,99 +183,115 @@ class ProductsScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${model.productNameEn!.toUpperCase()}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: AppCubit.get(context).isDark
-                            ? Colors.white
-                            : Colors.black.withOpacity(.7),
-                        fontSize: 15.0,
-                        height: 1.3,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  if (model.discountPrice != null)
+              child: Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      "${model.discountPrice} EGP",
+                      "${model.productNameEn!.toUpperCase()}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
+                          color: AppCubit.get(context).isDark
+                              ? Colors.white
+                              : Colors.black.withOpacity(.7),
+                          fontSize: 15.0,
+                          height: 1.3,
                           fontWeight: FontWeight.bold),
                     ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    if (model.discountPrice != null)
                       Text(
-                        "${model.sellingPrice} EGP",
+                        "${model.discountPrice} EGP",
                         style: TextStyle(
-                            decoration: model.discountPrice != null
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            fontSize: model.discountPrice != null ? 14.0 : 17.0,
-                            color: model.discountPrice != null
-                                ? Colors.grey
-                                : Colors.black),
+                            fontSize: 17.0,
+                            color: AppCubit.get(context).isDark
+                                ? Colors.lightBlueAccent
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Spacer(),
-                      if (model.discountPrice != null)
+                    if (model.discountPrice == null)
+                      SizedBox(
+                        height: 10,
+                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Text(
-                          '${model.id}% OFF',
+                          "${model.sellingPrice} EGP",
                           style: TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
+                              decoration: model.discountPrice != null
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              fontSize:
+                                  model.discountPrice != null ? 14.0 : 17.0,
+                              color: model.discountPrice != null
+                                  ? Colors.grey
+                                  : AppCubit.get(context).isDark
+                                      ? Colors.lightBlueAccent
+                                      : Colors.black),
                         ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      if (model.discountPrice != null)
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.yellowAccent,
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(10)),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            "Discount",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 14.0),
+                        Spacer(),
+                        if (model.discountPrice != null)
+                          Text(
+                            '${model.id}% OFF',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      if (model.discountPrice == null)
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.yellowAccent,
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(10)),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            "Price Increase",
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 14.0),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    if (model.discountPrice == null)
+                      SizedBox(
+                        height: 15,
+                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (model.discountPrice != null)
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.yellowAccent,
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10)),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Discount",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 14.0),
+                            ),
                           ),
+                        if (model.discountPrice == null)
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.yellowAccent,
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10)),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Price Increase",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 14.0),
+                            ),
+                          ),
+                        Spacer(),
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
                         ),
-                      Spacer(),
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      Text(
-                        "${model.rate}",
-                        style: TextStyle(
-                            color: Colors.amber,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          "${model.rate}",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
