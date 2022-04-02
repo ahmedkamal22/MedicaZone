@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({Key? key}) : super(key: key);
@@ -9,14 +10,46 @@ class ProductDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Trolley-Mounted Anesthesia Workstation"),
+            Text(
+              "Nokia",
+              style: TextStyle(color: Colors.blue),
+            ),
+            Text(
+              "asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd",
+              style: TextStyle(
+                color: Colors.black.withOpacity(.7),
+              ),
+            ),
+            Container(
+              color: Colors.green,
+              width: 60,
+              height: 25,
+              child: Padding(
+                padding: const EdgeInsetsDirectional.only(
+                  start: 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '4.3',
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Stack(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.topRight,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(13.0),
@@ -24,74 +57,108 @@ class ProductDetails extends StatelessWidget {
                     color: Colors.white,
                     child: Image(
                       image: NetworkImage(
-                        "http://medicazone.online/upload/products/thambnail/1725750806783242.jpg",
+                        "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg",
                       ),
                       width: double.infinity,
-                      height: 200,
+                      height: 150,
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
-                if (1 != null)
-                  Container(
-                    color: Colors.lightBlue,
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      "Discount",
-                      style: TextStyle(color: Colors.white, fontSize: 14.0),
-                    ),
-                  )
+                IconButton(
+                    onPressed: () {
+                      // HomeCubit.get(context)
+                      //     .changeFavourites(productsModel.id);
+                      // print(productsModel.id);
+                    },
+                    icon: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.grey[400],
+                        // HomeCubit.get(context)
+                        //         .favourites[productsModel.id]!
+                        //     ? Colors.blue
+                        //     : Colors.grey[400],
+                        child: Icon(
+                          Icons.favorite_border_outlined,
+                          size: 14.0,
+                          color: Colors.white,
+                        ))),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      if (1 != null)
-                        Text(
-                          "110000\$",
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold),
-                        ),
+              padding: const EdgeInsets.all(12.0),
+              child: Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "27844 EGP",
+                      style: TextStyle(
+                          fontSize: 17.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    if (1 == null)
                       SizedBox(
-                        width: 10,
+                        height: 10,
                       ),
-                      Text(
-                        "120000\$",
-                        style: TextStyle(
-                            decoration: 1 != null
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            fontSize: 1 != null ? 13.0 : 15.0,
-                            color: 1 != null ? Colors.grey : Colors.blue),
-                      ),
-                      Spacer(),
-                      IconButton(
-                          onPressed: () {
-                            // HomeCubit.get(context)
-                            //     .changeFavourites(productsModel.id);
-                            // print(productsModel.id);
-                          },
-                          icon: CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.grey[400],
-                            // HomeCubit.get(context)
-                            //         .favourites[productsModel.id]!
-                            //     ? Colors.blue
-                            //     : Colors.grey[400],
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                              size: 14.0,
-                              color: Colors.white,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "28000 EGP",
+                          style: TextStyle(
+                              decoration: 1 != null
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              fontSize: 1 != null ? 14.0 : 17.0,
+                              color: 1 != null ? Colors.grey : Colors.black),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        if (1 != null)
+                          Container(
+                            color: Colors.greenAccent.shade100,
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Text(
+                              '22% OFF',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ))
-                    ],
-                  ),
-                ],
+                          ),
+                        Spacer(),
+                        if (1 != null)
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.yellowAccent,
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10)),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Discount",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 14.0),
+                            ),
+                          ),
+                        if (1 == null)
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.yellowAccent,
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(10)),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Price Increase",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 14.0),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
