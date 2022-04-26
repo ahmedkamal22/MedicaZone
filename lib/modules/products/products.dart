@@ -165,20 +165,13 @@ class ProductsScreen extends StatelessWidget {
                     onPressed: () {
                       // HomeCubit.get(context)
                       //     .changeFavourites(productsModel.id);
-                      // print(productsModel.id);
+                      print(model.id);
                     },
-                    icon: CircleAvatar(
-                        radius: 15,
-                        backgroundColor: Colors.grey[400],
-                        // HomeCubit.get(context)
-                        //         .favourites[productsModel.id]!
-                        //     ? Colors.blue
-                        //     : Colors.grey[400],
-                        child: Icon(
-                          Icons.favorite_border_outlined,
-                          size: 14.0,
-                          color: Colors.white,
-                        ))),
+                    icon: Icon(
+                      Icons.favorite_border_outlined,
+                      size: 22.0,
+                      color: Colors.blueGrey,
+                    )),
               ],
             ),
             Padding(

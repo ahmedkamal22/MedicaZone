@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mediica_zone/layout/cubit/home_cubit.dart';
+import 'package:mediica_zone/models/home/home_model.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({Key? key}) : super(key: key);
@@ -9,14 +11,21 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
+      body: buildProductDetailsItem(),
+    );
+  }
+
+  Widget buildProductDetailsItem() => Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Nokia",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               "asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd",
@@ -163,7 +172,5 @@ class ProductDetails extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
 }

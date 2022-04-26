@@ -42,9 +42,6 @@ class LoginScreen extends StatelessWidget {
                   states: ToastStates.FAILURE);
             }
           }
-          if (state is LoginFailureState) {
-            showToast(message: state.error, states: ToastStates.FAILURE);
-          }
         },
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
