@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
             theme: light,
             darkTheme: dark,
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: LoginScreen(),
+            home: Home(),
           );
         },
       ),

@@ -7,7 +7,7 @@ class DioHelper {
   static int() {
     dio = Dio(
       BaseOptions(
-        baseUrl: "http://medicazone.online/api/zone/",
+        baseUrl: "http://medicazone.online/api/",
         receiveDataWhenStatusError: true,
       ),
     );

@@ -1,23 +1,37 @@
 class SliderModel {
-  bool? status;
+  bool? success;
+  int? code;
+  String? locale;
   String? message;
-  List<Data>? data;
+  Data? data;
 
-  SliderModel({this.status, this.message, this.data});
+  SliderModel({this.success, this.code, this.locale, this.message, this.data});
 
   SliderModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    success = json['success'];
+    code = json['code'];
+    locale = json['locale'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+}
+
+class Data {
+  List<Items>? items;
+
+  Data({this.items});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add(new Items.fromJson(v));
       });
     }
   }
 }
 
-class Data {
+class Items {
   int? id;
   String? sliderImg;
   String? title;
@@ -27,7 +41,7 @@ class Data {
   String? updatedAt;
   int? adminsId;
 
-  Data(
+  Items(
       {this.id,
       this.sliderImg,
       this.title,
@@ -37,7 +51,7 @@ class Data {
       this.updatedAt,
       this.adminsId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     sliderImg = json['slider_img'];
     title = json['title'];

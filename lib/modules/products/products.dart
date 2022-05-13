@@ -55,10 +55,9 @@ class ProductsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: CarouselSlider(
-                  items: sliderModel.data!
+                  items: sliderModel.data!.items!
                       .map((e) => Image(
-                            image: NetworkImage(
-                                "http://medicazone.online/${e.sliderImg}"),
+                            image: NetworkImage("${e.sliderImg}"),
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ))
@@ -72,7 +71,7 @@ class ProductsScreen extends StatelessWidget {
                     reverse: false,
                     autoPlay: true,
                     autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayAnimationDuration: Duration(milliseconds: 8010),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: true,
                     scrollDirection: Axis.horizontal,
@@ -102,10 +101,10 @@ class ProductsScreen extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (context, index) => buildCategories(
-                              categoriesModel.data!.data[index], context),
+                              categoriesModel.data!.items![index], context),
                           separatorBuilder: (context, index) =>
                               SizedBox(width: 10.0),
-                          itemCount: categoriesModel.data!.data.length),
+                          itemCount: categoriesModel.data!.items!.length),
                     ),
                   ),
                   SizedBox(
@@ -126,13 +125,13 @@ class ProductsScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 1 / 1.56,
                   children: List.generate(
-                    homeModel.allData!.data!.length,
+                    homeModel.data!.data!.length,
                     (index) => InkWell(
                         onTap: () {
                           navigateTo(context, ProductDetails());
                         },
                         child: buildProducts(
-                            homeModel.allData!.data![index], context)),
+                            homeModel.data!.data![index], context)),
                   ),
                 ))
           ],
@@ -153,7 +152,7 @@ class ProductsScreen extends StatelessWidget {
                     color: Colors.white,
                     child: Image(
                       image: NetworkImage(
-                        "http://medicazone.online/${model.productThambnail}",
+                        "${model.productThambnail}",
                       ),
                       width: double.infinity,
                       height: 120,
@@ -291,7 +290,7 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildCategories(CategoriesData model, context) => Stack(
+  Widget buildCategories(CategoryItems model, context) => Stack(
         alignment: Alignment.bottomCenter,
         children: [
           Container(
