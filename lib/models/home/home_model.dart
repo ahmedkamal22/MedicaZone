@@ -1,17 +1,22 @@
 class HomeModel {
-  bool? status;
+  bool? success;
+  int? code;
+  String? locale;
   String? message;
-  AllData? allData;
+  Data? data;
+
+  HomeModel({this.success, this.code, this.locale, this.message, this.data});
 
   HomeModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    success = json['success'];
+    code = json['code'];
+    locale = json['locale'];
     message = json['message'];
-
-    allData = json['data'] != null ? new AllData.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 }
 
-class AllData {
+class Data {
   int? currentPage;
   List<HomeData>? data;
   String? firstPageUrl;
@@ -26,7 +31,22 @@ class AllData {
   int? to;
   int? total;
 
-  AllData.fromJson(Map<String, dynamic> json) {
+  Data(
+      {this.currentPage,
+      this.data,
+      this.firstPageUrl,
+      this.from,
+      this.lastPage,
+      this.lastPageUrl,
+      this.links,
+      this.nextPageUrl,
+      this.path,
+      this.perPage,
+      this.prevPageUrl,
+      this.to,
+      this.total});
+
+  Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = <HomeData>[];
@@ -65,12 +85,12 @@ class HomeData {
   String? productSlugAr;
   String? productCode;
   String? productQty;
-  String? productTagsEn;
-  String? productTagsAr;
-  String? productSizeEn;
-  String? productSizeAr;
-  String? productColorEn;
-  String? productColorAr;
+  List<String>? productTagsEn;
+  List<String>? productTagsAr;
+  List<String>? productSizeEn;
+  List<String>? productSizeAr;
+  List<String>? productColorEn;
+  List<String>? productColorAr;
   String? sellingPrice;
   String? discountPrice;
   String? shortDescpEn;
@@ -90,6 +110,43 @@ class HomeData {
   Brand? brand;
   Category? category;
 
+  HomeData(
+      {this.id,
+      this.brandId,
+      this.categoryId,
+      this.subcategoryId,
+      this.subsubcategoryId,
+      this.productNameEn,
+      this.productNameAr,
+      this.productSlugEn,
+      this.productSlugAr,
+      this.productCode,
+      this.productQty,
+      this.productTagsEn,
+      this.productTagsAr,
+      this.productSizeEn,
+      this.productSizeAr,
+      this.productColorEn,
+      this.productColorAr,
+      this.sellingPrice,
+      this.discountPrice,
+      this.shortDescpEn,
+      this.shortDescpAr,
+      this.longDescpEn,
+      this.longDescpAr,
+      this.productThambnail,
+      this.hotDeals,
+      this.featured,
+      this.specialOffer,
+      this.specialDeals,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.adminsId,
+      this.rate,
+      this.brand,
+      this.category});
+
   HomeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandId = json['brand_id'];
@@ -102,12 +159,12 @@ class HomeData {
     productSlugAr = json['product_slug_ar'];
     productCode = json['product_code'];
     productQty = json['product_qty'];
-    productTagsEn = json['product_tags_en'];
-    productTagsAr = json['product_tags_ar'];
-    productSizeEn = json['product_size_en'];
-    productSizeAr = json['product_size_ar'];
-    productColorEn = json['product_color_en'];
-    productColorAr = json['product_color_ar'];
+    productTagsEn = json['product_tags_en'].cast<String>();
+    productTagsAr = json['product_tags_ar'].cast<String>();
+    productSizeEn = json['product_size_en'].cast<String>();
+    productSizeAr = json['product_size_ar'].cast<String>();
+    productColorEn = json['product_color_en'].cast<String>();
+    productColorAr = json['product_color_ar'].cast<String>();
     sellingPrice = json['selling_price'];
     discountPrice = json['discount_price'];
     shortDescpEn = json['short_descp_en'];
@@ -140,6 +197,18 @@ class Brand {
   String? brandImage;
   String? createdAt;
   String? updatedAt;
+  int? adminsId;
+
+  Brand(
+      {this.id,
+      this.brandNameEn,
+      this.brandNameAr,
+      this.brandSlugEn,
+      this.brandSlugAr,
+      this.brandImage,
+      this.createdAt,
+      this.updatedAt,
+      this.adminsId});
 
   Brand.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -150,6 +219,7 @@ class Brand {
     brandImage = json['brand_image'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    adminsId = json['admins_id'];
   }
 }
 
@@ -162,6 +232,18 @@ class Category {
   Null? categoryIcon;
   String? createdAt;
   String? updatedAt;
+  int? adminsId;
+
+  Category(
+      {this.id,
+      this.categoryNameEn,
+      this.categoryNameAr,
+      this.categorySlugEn,
+      this.categorySlugAr,
+      this.categoryIcon,
+      this.createdAt,
+      this.updatedAt,
+      this.adminsId});
 
   Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -172,6 +254,7 @@ class Category {
     categoryIcon = json['category_icon'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    adminsId = json['admins_id'];
   }
 }
 

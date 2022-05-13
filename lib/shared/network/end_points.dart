@@ -1,15 +1,15 @@
 const String LOGIN = "auth/login";
 
-const String REGISTER = "register";
+const String REGISTER = "auth/register";
 
-const String HOME = "getProducts";
+const String HOME = "zone/getProducts";
 
-const String SLIDER = "sliders";
+const String SLIDER = "zone/sliders";
 
-const String DEALS = "hotdeals";
+const String DEALS = "zone/hotdeals";
 
-const String CATEGORIES = "getCategories";
+const String CATEGORIES = "zone/getCategories";
 
-const String FAVOURITES = "get-wishlist-product";
+const String FAVOURITES = "zone/get-wishlist-product";
 
-const String SEARCH = "getBySearch/";
+const String SEARCH = "zone/getBySearch/v";

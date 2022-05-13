@@ -1,37 +1,54 @@
 class DealsModel {
-  bool? status;
+  bool? success;
+  int? code;
+  String? locale;
   String? message;
-  List<Data> data = [];
+  Data? data;
+
+  DealsModel({this.success, this.code, this.locale, this.message, this.data});
 
   DealsModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    success = json['success'];
+    code = json['code'];
+    locale = json['locale'];
     message = json['message'];
-    if (json['data'] != null) {
-      json['data'].forEach((v) {
-        data.add(Data.fromJson(v));
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+}
+
+class Data {
+  List<DealsItems>? items;
+
+  Data({this.items});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['items'] != null) {
+      items = <DealsItems>[];
+      json['items'].forEach((v) {
+        items!.add(new DealsItems.fromJson(v));
       });
     }
   }
 }
 
-class Data {
+class DealsItems {
   int? id;
   int? brandId;
   int? categoryId;
   int? subcategoryId;
-  Null? subsubcategoryId;
+  int? subsubcategoryId;
   String? productNameEn;
   String? productNameAr;
   String? productSlugEn;
   String? productSlugAr;
   String? productCode;
   String? productQty;
-  String? productTagsEn;
-  String? productTagsAr;
-  String? productSizeEn;
-  String? productSizeAr;
-  String? productColorEn;
-  String? productColorAr;
+  List<String>? productTagsEn;
+  List<String>? productTagsAr;
+  List<String>? productSizeEn;
+  List<String>? productSizeAr;
+  List<String>? productColorEn;
+  List<String>? productColorAr;
   String? sellingPrice;
   String? discountPrice;
   String? shortDescpEn;
@@ -46,8 +63,10 @@ class Data {
   int? status;
   String? createdAt;
   String? updatedAt;
+  int? adminsId;
+  double? rate;
 
-  Data(
+  DealsItems(
       {this.id,
       this.brandId,
       this.categoryId,
@@ -78,9 +97,11 @@ class Data {
       this.specialDeals,
       this.status,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.adminsId,
+      this.rate});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DealsItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandId = json['brand_id'];
     categoryId = json['category_id'];
@@ -92,12 +113,12 @@ class Data {
     productSlugAr = json['product_slug_ar'];
     productCode = json['product_code'];
     productQty = json['product_qty'];
-    productTagsEn = json['product_tags_en'];
-    productTagsAr = json['product_tags_ar'];
-    productSizeEn = json['product_size_en'];
-    productSizeAr = json['product_size_ar'];
-    productColorEn = json['product_color_en'];
-    productColorAr = json['product_color_ar'];
+    productTagsEn = json['product_tags_en'].cast<String>();
+    productTagsAr = json['product_tags_ar'].cast<String>();
+    productSizeEn = json['product_size_en'].cast<String>();
+    productSizeAr = json['product_size_ar'].cast<String>();
+    productColorEn = json['product_color_en'].cast<String>();
+    productColorAr = json['product_color_ar'].cast<String>();
     sellingPrice = json['selling_price'];
     discountPrice = json['discount_price'];
     shortDescpEn = json['short_descp_en'];
@@ -112,5 +133,7 @@ class Data {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    adminsId = json['admins_id'];
+    rate = json['rate'];
   }
 }

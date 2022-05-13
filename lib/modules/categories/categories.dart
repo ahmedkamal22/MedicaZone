@@ -17,9 +17,9 @@ class CategoriesScreen extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return ListView.separated(
             itemBuilder: (context, index) => buildCategoriesItems(
-                cubit.categoriesModel!.data!.data[index], context),
+                cubit.categoriesModel!.data!.items![index], context),
             separatorBuilder: (context, index) => myDivider(),
-            itemCount: cubit.categoriesModel!.data!.data.length);
+            itemCount: cubit.categoriesModel!.data!.items!.length);
       },
     );
   }

@@ -220,7 +220,7 @@ Widget buildProductsItem(model, context, {bool oldPrice = true}) => Padding(
       ),
     );
 
-Widget buildCategoriesItems(CategoriesData models, context) => Padding(
+Widget buildCategoriesItems(CategoryItems models, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [

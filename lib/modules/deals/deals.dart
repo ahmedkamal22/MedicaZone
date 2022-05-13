@@ -18,14 +18,14 @@ class DealsScreen extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return ListView.separated(
             itemBuilder: (context, index) =>
-                buildDealsItem(cubit.dealsModel!.data[index], context),
+                buildDealsItem(cubit.dealsModel!.data!.items![index], context),
             separatorBuilder: (context, index) => myDivider(),
-            itemCount: cubit.dealsModel!.data.length);
+            itemCount: cubit.dealsModel!.data!.items!.length);
       },
     );
   }
 
-  Widget buildDealsItem(Data model, context) => Padding(
+  Widget buildDealsItem(DealsItems model, context) => Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class DealsScreen extends StatelessWidget {
                 children: [
                   Image(
                     image: NetworkImage(
-                      "http://medicazone.online/${model.productThambnail}",
+                      "${model.productThambnail}",
                     ),
                     width: double.infinity,
                     height: 120,
