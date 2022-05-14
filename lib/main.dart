@@ -56,10 +56,12 @@ class MyApp extends StatelessWidget {
                 AppCubit()..changeMode(fromShared: isDark)),
         BlocProvider(
             create: (BuildContext context) => HomeCubit()
+              ..getDealsData()
               ..getHomeData()
               ..getSliderImages()
               ..getCategoriesData()
-              ..getDealsData())
+
+        )
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
@@ -70,7 +72,7 @@ class MyApp extends StatelessWidget {
             theme: light,
             darkTheme: dark,
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: Home(),
+            home: LoginScreen(),
           );
         },
       ),

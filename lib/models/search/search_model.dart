@@ -1,23 +1,24 @@
 class SearchModel {
-  bool? status;
+  bool? success;
+  int? code;
+  String? locale;
   String? message;
-  List<AllData>? data;
+  SearchData? data;
 
-  SearchModel({this.status, this.message, this.data});
+  SearchModel({this.success, this.code, this.locale, this.message, this.data});
 
   SearchModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    success = json['success'];
+    code = json['code'];
+    locale = json['locale'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <AllData>[];
-      json['data'].forEach((v) {
-        data!.add(new AllData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new SearchData.fromJson(json['data']) : null;
   }
+
+
 }
 
-class AllData {
+class SearchData {
   int? currentPage;
   List<Data>? data;
   String? firstPageUrl;
@@ -25,29 +26,29 @@ class AllData {
   int? lastPage;
   String? lastPageUrl;
   List<Links>? links;
-  Null? nextPageUrl;
+  String? nextPageUrl;
   String? path;
   int? perPage;
   Null? prevPageUrl;
   int? to;
   int? total;
 
-  AllData(
+  SearchData(
       {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.links,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
+        this.data,
+        this.firstPageUrl,
+        this.from,
+        this.lastPage,
+        this.lastPageUrl,
+        this.links,
+        this.nextPageUrl,
+        this.path,
+        this.perPage,
+        this.prevPageUrl,
+        this.to,
+        this.total});
 
-  AllData.fromJson(Map<String, dynamic> json) {
+  SearchData.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -72,33 +73,27 @@ class AllData {
     to = json['to'];
     total = json['total'];
   }
+
 }
 
 class Data {
   int? id;
-  String? categoryNameEn;
-  String? categoryNameAr;
-  String? categorySlugEn;
-  String? categorySlugAr;
-  Null? categoryIcon;
-  String? createdAt;
-  String? updatedAt;
   int? brandId;
   int? categoryId;
   int? subcategoryId;
-  Null? subsubcategoryId;
+  int? subsubcategoryId;
   String? productNameEn;
   String? productNameAr;
   String? productSlugEn;
   String? productSlugAr;
   String? productCode;
   String? productQty;
-  String? productTagsEn;
-  String? productTagsAr;
-  String? productSizeEn;
-  String? productSizeAr;
-  String? productColorEn;
-  String? productColorAr;
+  List<String>? productTagsEn;
+  List<String>? productTagsAr;
+  List<String>? productSizeEn;
+  List<String>? productSizeAr;
+  List<String>? productColorEn;
+  List<String>? productColorAr;
   String? sellingPrice;
   String? discountPrice;
   String? shortDescpEn;
@@ -111,54 +106,48 @@ class Data {
   int? specialOffer;
   int? specialDeals;
   int? status;
+  String? createdAt;
+  String? updatedAt;
+  int? adminsId;
+  double? rate;
 
   Data(
       {this.id,
-      this.categoryNameEn,
-      this.categoryNameAr,
-      this.categorySlugEn,
-      this.categorySlugAr,
-      this.categoryIcon,
-      this.createdAt,
-      this.updatedAt,
-      this.brandId,
-      this.categoryId,
-      this.subcategoryId,
-      this.subsubcategoryId,
-      this.productNameEn,
-      this.productNameAr,
-      this.productSlugEn,
-      this.productSlugAr,
-      this.productCode,
-      this.productQty,
-      this.productTagsEn,
-      this.productTagsAr,
-      this.productSizeEn,
-      this.productSizeAr,
-      this.productColorEn,
-      this.productColorAr,
-      this.sellingPrice,
-      this.discountPrice,
-      this.shortDescpEn,
-      this.shortDescpAr,
-      this.longDescpEn,
-      this.longDescpAr,
-      this.productThambnail,
-      this.hotDeals,
-      this.featured,
-      this.specialOffer,
-      this.specialDeals,
-      this.status});
+        this.brandId,
+        this.categoryId,
+        this.subcategoryId,
+        this.subsubcategoryId,
+        this.productNameEn,
+        this.productNameAr,
+        this.productSlugEn,
+        this.productSlugAr,
+        this.productCode,
+        this.productQty,
+        this.productTagsEn,
+        this.productTagsAr,
+        this.productSizeEn,
+        this.productSizeAr,
+        this.productColorEn,
+        this.productColorAr,
+        this.sellingPrice,
+        this.discountPrice,
+        this.shortDescpEn,
+        this.shortDescpAr,
+        this.longDescpEn,
+        this.longDescpAr,
+        this.productThambnail,
+        this.hotDeals,
+        this.featured,
+        this.specialOffer,
+        this.specialDeals,
+        this.status,
+        this.createdAt,
+        this.updatedAt,
+        this.adminsId,
+        this.rate});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    categoryNameEn = json['category_name_en'];
-    categoryNameAr = json['category_name_ar'];
-    categorySlugEn = json['category_slug_en'];
-    categorySlugAr = json['category_slug_ar'];
-    categoryIcon = json['category_icon'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
     brandId = json['brand_id'];
     categoryId = json['category_id'];
     subcategoryId = json['subcategory_id'];
@@ -169,12 +158,12 @@ class Data {
     productSlugAr = json['product_slug_ar'];
     productCode = json['product_code'];
     productQty = json['product_qty'];
-    productTagsEn = json['product_tags_en'];
-    productTagsAr = json['product_tags_ar'];
-    productSizeEn = json['product_size_en'];
-    productSizeAr = json['product_size_ar'];
-    productColorEn = json['product_color_en'];
-    productColorAr = json['product_color_ar'];
+    productTagsEn = ['x'];// json['product_tags_en'].cast<String>();
+    productTagsAr = ['x'];// json['product_tags_ar'].cast<String>();
+    productSizeEn = ['x'];// json['product_size_en'].cast<String>();
+    productSizeAr = ['x'];// json['product_size_ar'].cast<String>();
+    productColorEn = ['x'];// json['product_color_en'].cast<String>();
+    productColorAr = ['x'];// json['product_color_ar'].cast<String>();
     sellingPrice = json['selling_price'];
     discountPrice = json['discount_price'];
     shortDescpEn = json['short_descp_en'];
@@ -187,7 +176,12 @@ class Data {
     specialOffer = json['special_offer'];
     specialDeals = json['special_deals'];
     status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    adminsId = json['admins_id'];
+    rate =  double.tryParse(json['rate'].toString());
   }
+
 }
 
 class Links {
@@ -202,4 +196,5 @@ class Links {
     label = json['label'];
     active = json['active'];
   }
+
 }

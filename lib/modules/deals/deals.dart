@@ -21,6 +21,7 @@ class DealsScreen extends StatelessWidget {
                 buildDealsItem(cubit.dealsModel!.data!.items![index], context),
             separatorBuilder: (context, index) => myDivider(),
             itemCount: cubit.dealsModel!.data!.items!.length);
+
       },
     );
   }
