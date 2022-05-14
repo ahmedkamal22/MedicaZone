@@ -12,4 +12,4 @@ const String CATEGORIES = "zone/getCategories";
 
 const String FAVOURITES = "zone/get-wishlist-product";
 
-const String SEARCH = "zone/getBySearch/v";
+const String SEARCH = "zone/getBySearch/";

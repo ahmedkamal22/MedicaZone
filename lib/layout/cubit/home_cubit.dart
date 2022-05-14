@@ -110,8 +110,15 @@ class HomeCubit extends Cubit<HomeStates> {
 
   SearchModel? searchModel;
 
-  void getSearch({String? text}) {
+  void getSearch({String text = ""}) {
     emit(SearchLoadingState());
-    DioHelper.getData(url: SEARCH, query: {"word": text});
+    DioHelper.getData(url: SEARCH + text).then((value) {
+      searchModel= SearchModel.fromJson(value.data);
+      emit(SearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(SearchFailureState(error.toString()));
+    });
+
   }
 }

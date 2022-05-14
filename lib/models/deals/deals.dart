@@ -134,6 +134,6 @@ class DealsItems {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
-    rate = json['rate'];
+    rate =  double.parse(json['rate'].toString());
   }
 }

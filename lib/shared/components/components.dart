@@ -139,7 +139,7 @@ Widget buildProductsItem(model, context, {bool oldPrice = true}) => Padding(
               children: [
                 Image(
                   image: NetworkImage(
-                    "${model!.image}",
+                    "${model!.productThambnail}",
                   ),
                   width: 120,
                   height: 120,
