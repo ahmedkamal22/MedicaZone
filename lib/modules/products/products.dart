@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
-import 'package:mediica_zone/modules/categories/categories.dart';
-import 'package:mediica_zone/modules/deals/deals.dart';
 import 'package:mediica_zone/modules/product_details/product_details.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
@@ -263,7 +261,7 @@ class ProductsScreen extends StatelessWidget {
                                     BorderRadiusDirectional.circular(10)),
                             padding: EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              "Price Increase",
+                              "New",
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14.0),
                             ),
