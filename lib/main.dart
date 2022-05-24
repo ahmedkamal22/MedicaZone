@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediica_zone/modules/product_details/product_details.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 import 'package:mediica_zone/shared/cubit/app_states.dart';
@@ -12,7 +11,6 @@ import 'package:mediica_zone/shared/styles/themes.dart';
 
 import 'layout/cubit/home_cubit.dart';
 import 'layout/home.dart';
-import 'modules/login/login.dart';
 import 'modules/splash/splach_screen.dart';
 
 void main() async {
@@ -23,7 +21,6 @@ void main() async {
   bool? isDark = CacheHelper.getBooleanData(key: "isDark");
   bool? onBoarding = CacheHelper.getData(key: onBoardingKeyValue);
   token = CacheHelper.getData(key: tokenKeyValue);
-  print(token);
   if (onBoarding != null)
     widget = Home();
   else
@@ -72,7 +69,7 @@ class MyApp extends StatelessWidget {
             theme: light,
             darkTheme: dark,
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: LoginScreen(),
+            home: startScreen,
           );
         },
       ),
