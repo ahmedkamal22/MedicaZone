@@ -229,7 +229,7 @@ class Category {
   String? categoryNameAr;
   String? categorySlugEn;
   String? categorySlugAr;
-  Null? categoryIcon;
+  String? categoryIcon;
   String? createdAt;
   String? updatedAt;
   int? adminsId;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mediica_zone/modules/product_details/product_details.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
@@ -60,11 +61,16 @@ class SearchScreen extends StatelessWidget {
                       Expanded(
                         child: ListView.separated(
                             physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) => buildProductsItem(
-                            HomeCubit.get(context)
-                                    .searchModel!
-                                    .data!.data![index],
-                                context),
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: (){
+                                navigateTo(context, ProductDetails(cubit.homeModel!.data!.data![index]));
+                              },
+                              child: buildProductsItem(
+                              HomeCubit.get(context)
+                                      .searchModel!
+                                      .data!.data![index],
+                                  context),
+                            ),
                             separatorBuilder: (context, index) => myDivider(),
                             itemCount: HomeCubit.get(context)
                                 .searchModel!.data!.data!.length),
