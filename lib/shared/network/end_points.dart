@@ -13,3 +13,7 @@ const String CATEGORIES = "zone/getCategories";
 const String FAVOURITES = "zone/get-wishlist-product";
 
 const String SEARCH = "zone/getBySearch/";
+
+const String ProductDetails = "zone/product/details/";
+
+const String UserProfile = "auth/user-profile";

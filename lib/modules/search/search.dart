@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
-import '../../models/search/search_model.dart';
 import '../../shared/components/components.dart';
 import '../../shared/cubit/app_cubit.dart';
+import '../../shared/styles/colors.dart';
 
 class SearchScreen extends StatelessWidget {
   var searchController = TextEditingController();
@@ -69,6 +69,16 @@ class SearchScreen extends StatelessWidget {
                             itemCount: HomeCubit.get(context)
                                 .searchModel!.data!.data!.length),
                       ),
+                    if (state is SearchFailureState)
+                      Text(
+                        'Not Found!!',
+                        style: TextStyle(
+                            color: AppCubit.get(context).isDark
+                                ? Colors.white
+                                : Colors.black.withOpacity(.7),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold),
+                      )
                   ],
                 ),
               ),
@@ -79,95 +89,154 @@ class SearchScreen extends StatelessWidget {
     );
   }
 }
-Widget buildProductsItem( model, context, {bool oldPrice = true}) => Padding(
-  padding: const EdgeInsets.all(20.0),
-  child: Container(
-    height: 120,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            Image(
-              image: NetworkImage(
-                "${model!.productThambnail}",
-              ),
-              width: 120,
-              height: 120,
-              fit: BoxFit.cover,
-            ),
-            if (model.discountPrice != 0 && oldPrice)
-              Container(
-                color: Colors.red,
-                padding:
-                EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-                child: Text(
-                  "Discount",
-                  style: TextStyle(color: Colors.white, fontSize: 11.0),
+Widget buildProductsItem( model, context) => Container(
+  color: AppCubit.get(context).isDark ? color : Colors.white,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: Container(
+              color: Colors.white,
+              child: Image(
+                image: NetworkImage(
+                  "${model.productThambnail}",
                 ),
+                width: double.infinity,
+                height: 120,
+                fit: BoxFit.contain,
               ),
-          ],
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                // HomeCubit.get(context)
+                //     .changeFavourites(productsModel.id);
+                print(model.id);
+              },
+              icon: Icon(
+                Icons.favorite_border_outlined,
+                size: 22.0,
+                color: Colors.blueGrey,
+              )),
+        ],
+      ),
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("${model.productNameEn}",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 15.0,
-                      height: 1.3,
-                      fontWeight: FontWeight.bold)),
-              Spacer(),
+              Text(
+                "${model.productNameEn!.toUpperCase()}",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: AppCubit.get(context).isDark
+                        ? Colors.white
+                        : Colors.black.withOpacity(.7),
+                    fontSize: 15.0,
+                    height: 1.3,
+                    fontWeight: FontWeight.bold),
+              ),
+              if (model.discountPrice != null)
+                Text(
+                  "${model.discountPrice} EGP",
+                  style: TextStyle(
+                      fontSize: 17.0,
+                      color: AppCubit.get(context).isDark
+                          ? Colors.lightBlueAccent
+                          : Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              if (model.discountPrice == null)
+                SizedBox(
+                  height: 10,
+                ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "${model.sellingPrice}",
+                    "${model.sellingPrice} EGP",
                     style: TextStyle(
-                        fontSize: 13.0,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold),
+                        decoration: model.discountPrice != null
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        fontSize:
+                        model.discountPrice != null ? 14.0 : 17.0,
+                        color: model.discountPrice != null
+                            ? Colors.grey
+                            : AppCubit.get(context).isDark
+                            ? Colors.lightBlueAccent
+                            : Colors.black),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  if (model.discountPrice != 0 && oldPrice)
+                  Spacer(),
+                  if (model.discountPrice != null)
                     Text(
-                      "${model.discountPrice}",
+                      '${model.id}% OFF',
                       style: TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                          fontSize: 11.0,
-                          color: Colors.grey),
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold),
+                    ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              if (model.discountPrice == null)
+                SizedBox(
+                  height: 15,
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  if (model.discountPrice != null)
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.yellowAccent,
+                          borderRadius:
+                          BorderRadiusDirectional.circular(10)),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        "Discount",
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14.0),
+                      ),
+                    ),
+                  if (model.discountPrice == null)
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.yellowAccent,
+                          borderRadius:
+                          BorderRadiusDirectional.circular(10)),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        "New",
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 14.0),
+                      ),
                     ),
                   Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        // HomeCubit.get(context).changeFavourites(model.id);
-                      },
-                      icon: CircleAvatar(
-                        radius: 15,
-                        backgroundColor:
-                        // HomeCubit.get(context).favourites[model.id]!
-                        //     ? Colors.blue
-                        //     : Colors.grey[400],
-                        Colors.grey[400],
-                        child: Icon(
-                          Icons.favorite_border_outlined,
-                          size: 14.0,
-                          color: Colors.white,
-                        ),
-                      ))
+                  Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  Text(
+                    "${model.rate}",
+                    style: TextStyle(
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
                 ],
               ),
             ],
           ),
         ),
-      ],
-    ),
+      ),
+    ],
   ),
 );

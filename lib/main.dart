@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
               ..getHomeData()
               ..getSliderImages()
               ..getCategoriesData()
-
-        )
+                //..getUserData()
+            )
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},

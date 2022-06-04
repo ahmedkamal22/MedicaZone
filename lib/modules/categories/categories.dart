@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediica_zone/models/categories/categories_model.dart';
 
 import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
@@ -15,11 +14,16 @@ class CategoriesScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return ListView.separated(
-            itemBuilder: (context, index) => buildCategoriesItems(
-                cubit.categoriesModel!.data!.items![index], context),
-            separatorBuilder: (context, index) => myDivider(),
-            itemCount: cubit.categoriesModel!.data!.items!.length);
+        return InkWell(
+          onTap: () {
+            HomeCubit.get(context).changeBottomNav(0);
+          },
+          child: ListView.separated(
+              itemBuilder: (context, index) => buildCategoriesItems(
+                  cubit.categoriesModel!.data!.items![index], context),
+              separatorBuilder: (context, index) => myDivider(),
+              itemCount: cubit.categoriesModel!.data!.items!.length),
+        );
       },
     );
   }
