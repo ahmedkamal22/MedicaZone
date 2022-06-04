@@ -6,9 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/layout/cubit/home_cubit.dart';
 import 'package:mediica_zone/layout/cubit/home_states.dart';
 import 'package:mediica_zone/models/details/product_details.dart';
+import 'package:mediica_zone/models/home/home_model.dart';
+import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
 class ProductDetails extends StatelessWidget {
-  // const ProductDetails({Key? key}) : super(key: key);
+  HomeData product;
+
+  ProductDetails(this.product);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,34 +24,34 @@ class ProductDetails extends StatelessWidget {
             var cubit = HomeCubit.get(context);
             return ConditionalBuilder(
                 condition: true,
-                builder: (context) => buildProductDetailsItem(cubit.model),
+                builder: (context) => buildProductDetailsItem(product, context),
                 fallback: (context) =>
                     Center(child: CircularProgressIndicator()));
           }),
     );
   }
 
-  Widget buildProductDetailsItem(Product? model) => Padding(
+  Widget buildProductDetailsItem(HomeData model, context) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${model!.productSlugEn}",
+              "${model.brand!.brandNameEn}",
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              "${model.productNameEn}",
+              "${model.productNameEn!.toUpperCase()}",
               style: TextStyle(
                 color: Colors.black.withOpacity(.7),
               ),
             ),
             Container(
               color: Colors.green,
-              width: 60,
+              width: 40,
               height: 25,
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(
@@ -111,13 +116,16 @@ class ProductDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "${model.discountPrice}",
-                      style: TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    if (model.discountPrice != null)
+                      Text(
+                        "${model.discountPrice} EGP",
+                        style: TextStyle(
+                            fontSize: 17.0,
+                            color: AppCubit.get(context).isDark
+                                ? Colors.lightBlueAccent
+                                : Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
                     if (model.discountPrice == null)
                       SizedBox(
                         height: 10,
@@ -126,21 +134,25 @@ class ProductDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "${model.sellingPrice}",
+                          "${model.sellingPrice} EGP",
                           style: TextStyle(
                               decoration: model.discountPrice != null
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
-                              fontSize: 1 != null ? 14.0 : 17.0,
-                              color: 1 != null ? Colors.grey : Colors.black),
+                              fontSize:
+                                  model.discountPrice != null ? 14.0 : 17.0,
+                              color: model.discountPrice != null
+                                  ? Colors.grey
+                                  : AppCubit.get(context).isDark
+                                      ? Colors.lightBlueAccent
+                                      : Colors.black),
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         if (model.discountPrice != null)
                           Container(
-                            color: Colors.greenAccent.shade100,
-                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            color: Colors.green.withOpacity(.2),
                             child: Text(
                               '${model.id}% OFF',
                               style: TextStyle(
@@ -149,6 +161,10 @@ class ProductDetails extends StatelessWidget {
                             ),
                           ),
                         Spacer(),
+                        if (model.discountPrice == null)
+                          SizedBox(
+                            height: 15,
+                          ),
                         if (model.discountPrice != null)
                           Container(
                             decoration: BoxDecoration(

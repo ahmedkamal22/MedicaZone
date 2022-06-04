@@ -126,7 +126,8 @@ class ProductsScreen extends StatelessWidget {
                     homeModel.data!.data!.length,
                     (index) => InkWell(
                         onTap: () {
-                          navigateTo(context, ProductDetails());
+                          navigateTo(context,
+                              ProductDetails(homeModel.data!.data![index]));
                         },
                         child: buildProducts(
                             homeModel.data!.data![index], context)),
