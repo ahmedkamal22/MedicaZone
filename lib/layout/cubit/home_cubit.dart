@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/models/details/product_details.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
-import 'package:mediica_zone/models/search/search_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
 import 'package:mediica_zone/models/user/user_data.dart';
 import 'package:mediica_zone/shared/components/components.dart';
@@ -111,12 +110,12 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  SearchModel? searchModel;
+  HomeModel? SearchResults;
 
   void getSearch({String text = ""}) {
     emit(SearchLoadingState());
     DioHelper.getData(url: SEARCH + text).then((value) {
-      searchModel = SearchModel.fromJson(value.data);
+      SearchResults = HomeModel.fromJson(value.data);
       emit(SearchSuccessState());
     }).catchError((error) {
       print(error.toString());

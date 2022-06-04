@@ -5,12 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/layout/cubit/home_cubit.dart';
 import 'package:mediica_zone/layout/cubit/home_states.dart';
-import 'package:mediica_zone/models/details/product_details.dart';
-import 'package:mediica_zone/models/home/home_model.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
+import '../../models/product/Product.dart';
+
 class ProductDetails extends StatelessWidget {
-  HomeData product;
+  Product product;
 
   ProductDetails(this.product);
 
@@ -31,7 +31,7 @@ class ProductDetails extends StatelessWidget {
     );
   }
 
-  Widget buildProductDetailsItem(HomeData model, context) => Padding(
+  Widget buildProductDetailsItem(Product model, context) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
