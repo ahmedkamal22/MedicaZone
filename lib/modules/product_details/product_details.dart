@@ -46,7 +46,7 @@ class ProductDetails extends StatelessWidget {
             Text(
               "${model.productNameEn!.toUpperCase()}",
               style: TextStyle(
-                color: Colors.black.withOpacity(.7),
+                color: AppCubit.get(context).isDark?Colors.white:Colors.black.withOpacity(.7),
               ),
             ),
             Container(

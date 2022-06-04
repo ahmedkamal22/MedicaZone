@@ -299,7 +299,7 @@ class ProductsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
                   image: NetworkImage(
-                      "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg"),
+                      "${model.categoryIcon}"),
                   fit: BoxFit.cover,
                 )),
           ),

@@ -231,7 +231,7 @@ Widget buildCategoriesItems(CategoryItems models, context) => Padding(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: NetworkImage(
-                      "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg"),
+                      "${models.categoryIcon}"),
                   fit: BoxFit.cover,
                 )),
           ),

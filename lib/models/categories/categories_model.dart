@@ -15,6 +15,18 @@ class CategoriesModel {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    data['code'] = this.code;
+    data['locale'] = this.locale;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
 }
 
 class Data {
@@ -30,6 +42,14 @@ class Data {
       });
     }
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.items != null) {
+      data['items'] = this.items!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class CategoryItems {
@@ -38,25 +58,23 @@ class CategoryItems {
   String? categoryNameAr;
   String? categorySlugEn;
   String? categorySlugAr;
-  Null? categoryIcon;
+  String? categoryIcon;
   String? createdAt;
   String? updatedAt;
   int? adminsId;
   List<Subcategory>? subcategory;
-  List<Subsubcategory>? subsubcategory;
 
   CategoryItems(
       {this.id,
-      this.categoryNameEn,
-      this.categoryNameAr,
-      this.categorySlugEn,
-      this.categorySlugAr,
-      this.categoryIcon,
-      this.createdAt,
-      this.updatedAt,
-      this.adminsId,
-      this.subcategory,
-      this.subsubcategory});
+        this.categoryNameEn,
+        this.categoryNameAr,
+        this.categorySlugEn,
+        this.categorySlugAr,
+        this.categoryIcon,
+        this.createdAt,
+        this.updatedAt,
+        this.adminsId,
+        this.subcategory});
 
   CategoryItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -74,12 +92,23 @@ class CategoryItems {
         subcategory!.add(new Subcategory.fromJson(v));
       });
     }
-    if (json['subsubcategory'] != null) {
-      subsubcategory = <Subsubcategory>[];
-      json['subsubcategory'].forEach((v) {
-        subsubcategory!.add(new Subsubcategory.fromJson(v));
-      });
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['category_name_en'] = this.categoryNameEn;
+    data['category_name_ar'] = this.categoryNameAr;
+    data['category_slug_en'] = this.categorySlugEn;
+    data['category_slug_ar'] = this.categorySlugAr;
+    data['category_icon'] = this.categoryIcon;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['admins_id'] = this.adminsId;
+    if (this.subcategory != null) {
+      data['subcategory'] = this.subcategory!.map((v) => v.toJson()).toList();
     }
+    return data;
   }
 }
 
@@ -93,17 +122,19 @@ class Subcategory {
   String? createdAt;
   String? updatedAt;
   int? adminsId;
+  List<Subsubcategory>? subsubcategory;
 
   Subcategory(
       {this.id,
-      this.categoryId,
-      this.subcategoryNameEn,
-      this.subcategoryNameAr,
-      this.subcategorySlugEn,
-      this.subcategorySlugAr,
-      this.createdAt,
-      this.updatedAt,
-      this.adminsId});
+        this.categoryId,
+        this.subcategoryNameEn,
+        this.subcategoryNameAr,
+        this.subcategorySlugEn,
+        this.subcategorySlugAr,
+        this.createdAt,
+        this.updatedAt,
+        this.adminsId,
+        this.subsubcategory});
 
   Subcategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -115,6 +146,30 @@ class Subcategory {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
+    if (json['subsubcategory'] != null) {
+      subsubcategory = <Subsubcategory>[];
+      json['subsubcategory'].forEach((v) {
+        subsubcategory!.add(new Subsubcategory.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['category_id'] = this.categoryId;
+    data['subcategory_name_en'] = this.subcategoryNameEn;
+    data['subcategory_name_ar'] = this.subcategoryNameAr;
+    data['subcategory_slug_en'] = this.subcategorySlugEn;
+    data['subcategory_slug_ar'] = this.subcategorySlugAr;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['admins_id'] = this.adminsId;
+    if (this.subsubcategory != null) {
+      data['subsubcategory'] =
+          this.subsubcategory!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
@@ -132,15 +187,15 @@ class Subsubcategory {
 
   Subsubcategory(
       {this.id,
-      this.categoryId,
-      this.subcategoryId,
-      this.subsubcategoryNameEn,
-      this.subsubcategoryNameAr,
-      this.subsubcategorySlugEn,
-      this.subsubcategorySlugAr,
-      this.createdAt,
-      this.updatedAt,
-      this.adminsId});
+        this.categoryId,
+        this.subcategoryId,
+        this.subsubcategoryNameEn,
+        this.subsubcategoryNameAr,
+        this.subsubcategorySlugEn,
+        this.subsubcategorySlugAr,
+        this.createdAt,
+        this.updatedAt,
+        this.adminsId});
 
   Subsubcategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -153,5 +208,20 @@ class Subsubcategory {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['category_id'] = this.categoryId;
+    data['subcategory_id'] = this.subcategoryId;
+    data['subsubcategory_name_en'] = this.subsubcategoryNameEn;
+    data['subsubcategory_name_ar'] = this.subsubcategoryNameAr;
+    data['subsubcategory_slug_en'] = this.subsubcategorySlugEn;
+    data['subsubcategory_slug_ar'] = this.subsubcategorySlugAr;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['admins_id'] = this.adminsId;
+    return data;
   }
 }

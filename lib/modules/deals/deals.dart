@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mediica_zone/modules/product_details/product_details.dart';
+import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
 import '../../layout/cubit/home_cubit.dart';
@@ -25,8 +27,14 @@ class DealsScreen extends StatelessWidget {
               childAspectRatio: 1 / 1.56,
               children: List.generate(
                   cubit.dealsModel!.data!.items!.length,
-                  (index) => buildDealsItem(
-                      cubit.dealsModel!.data!.items![index], context)),
+                  (index) => InkWell(
+                    onTap: () {
+                      navigateTo(context,
+                          ProductDetails(cubit.homeModel!.data!.data![index]));
+                    },
+                    child: buildDealsItem(
+                        cubit.dealsModel!.data!.items![index], context),
+                  )),
             ),
           ),
         );
