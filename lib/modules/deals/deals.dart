@@ -29,9 +29,11 @@ class DealsScreen extends StatelessWidget {
                   cubit.dealsModel!.data!.items!.length,
                   (index) => InkWell(
                     onTap: () {
-                      navigateTo(context,
-                          ProductDetails(cubit.homeModel!.data!.data![index]));
-                    },
+                      navigateTo(
+                              context,
+                              ProductDetails(
+                                  cubit.homeModel!.data!.products![index]));
+                        },
                     child: buildDealsItem(
                         cubit.dealsModel!.data!.items![index], context),
                   )),

@@ -13,6 +13,7 @@ import '../../layout/cubit/home_cubit.dart';
 import '../../layout/cubit/home_states.dart';
 import '../../models/categories/categories_model.dart';
 import '../../models/home/home_model.dart';
+import '../../models/product/Product.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -123,21 +124,21 @@ class ProductsScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   childAspectRatio: 1 / 1.56,
                   children: List.generate(
-                    homeModel.data!.data!.length,
+                    homeModel.data!.products!.length,
                     (index) => InkWell(
                         onTap: () {
                           navigateTo(context,
-                              ProductDetails(homeModel.data!.data![index]));
+                              ProductDetails(homeModel.data!.products![index]));
                         },
                         child: buildProducts(
-                            homeModel.data!.data![index], context)),
+                            homeModel.data!.products![index], context)),
                   ),
                 ))
           ],
         ),
       );
 
-  Widget buildProducts(HomeData model, context) => Container(
+  Widget buildProducts(Product model, context) => Container(
         color: AppCubit.get(context).isDark ? color : Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

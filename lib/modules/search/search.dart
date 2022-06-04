@@ -63,17 +63,24 @@ class SearchScreen extends StatelessWidget {
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (context, index) => InkWell(
                               onTap: (){
-                                navigateTo(context, ProductDetails(cubit.homeModel!.data!.data![index]));
-                              },
-                              child: buildProductsItem(
-                              HomeCubit.get(context)
-                                      .searchModel!
-                                      .data!.data![index],
-                                  context),
-                            ),
+                                    navigateTo(
+                                        context,
+                                        ProductDetails(cubit.SearchResults!
+                                            .data!.products![index]));
+                                  },
+                                  child: buildProductsItem(
+                                      HomeCubit.get(context)
+                                          .SearchResults!
+                                          .data!
+                                          .products![index],
+                                      context),
+                                ),
                             separatorBuilder: (context, index) => myDivider(),
                             itemCount: HomeCubit.get(context)
-                                .searchModel!.data!.data!.length),
+                                .SearchResults!
+                                .data!
+                                .products!
+                                .length),
                       ),
                     if (state is SearchFailureState)
                       Text(
