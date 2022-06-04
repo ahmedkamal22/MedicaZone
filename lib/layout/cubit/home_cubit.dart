@@ -26,7 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ProductsScreen(),
     CategoriesScreen(),
     DealsScreen(),
-    AccountScreen(),
+    // AccountScreen(),
     // CartScreen(),
   ];
   List<BottomNavigationBarItem> items = [
@@ -42,10 +42,10 @@ class HomeCubit extends Cubit<HomeStates> {
       icon: Icon(Icons.discount_outlined),
       label: "Deals",
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person_outline),
-      label: "My Account",
-    ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(Icons.person_outline),
+    //   label: "My Account",
+    // ),
     // BottomNavigationBarItem(
     //   icon: Icon(Icons.shopping_cart),
     //   label: "Cart",
