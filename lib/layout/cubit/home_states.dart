@@ -59,3 +59,27 @@ class SearchFailureState extends HomeStates {
 
   SearchFailureState(this.error);
 }
+
+class ProductDetailsLoadingState extends HomeStates {}
+
+class ProductDetailsSuccessState extends HomeStates {
+  ProductDetailsSuccessState();
+}
+
+class ProductDetailsFailureState extends HomeStates {
+  final String error;
+
+  ProductDetailsFailureState(this.error);
+}
+
+class UserProfileLoadingState extends HomeStates {}
+
+class UserProfileSuccessState extends HomeStates {
+  UserProfileSuccessState();
+}
+
+class UserProfileFailureState extends HomeStates {
+  final String error;
+
+  UserProfileFailureState(this.error);
+}

@@ -2,8 +2,8 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../layout/home.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
 import '../../shared/cubit/app_cubit.dart';
@@ -31,10 +31,10 @@ class LoginScreen extends StatelessWidget {
                       key: tokenKeyValue, value: state.loginModel.accessToken)
                   .then((value) {
                 token = "${state.loginModel.accessToken}";
-                // navigateAndFinish(context, SplashScreen());
-                showToast(
-                    message: state.loginModel.message,
-                    states: ToastStates.SUCCESS);
+                navigateAndFinish(context, Home());
+                // showToast(
+                //     message: state.loginModel.message,
+                //     states: ToastStates.SUCCESS);
               });
             } else {
               showToast(
@@ -46,6 +46,9 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
           return Scaffold(
+            appBar: AppBar(
+              title: Text("Medica Zone"),
+            ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
@@ -127,15 +130,15 @@ class LoginScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyText1!
                                   .copyWith(
-                                    fontSize: 15,
-                                  ),
+                                fontSize: 15,
+                              ),
                             ),
                             SizedBox(
                               width: 10.0,
                             ),
                             TextButton(
                               onPressed: () {
-                                navigateTo(context, Register());
+                                navigateTo(context, RegisterScreen());
                               },
                               child: Text("Register Here"),
                             )

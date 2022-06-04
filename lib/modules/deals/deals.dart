@@ -17,7 +17,7 @@ class DealsScreen extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return SingleChildScrollView(
           child: Container(
-            color: Colors.grey[300],
+            color: AppCubit.get(context).isDark ? color : Colors.white,
             child: GridView.count(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

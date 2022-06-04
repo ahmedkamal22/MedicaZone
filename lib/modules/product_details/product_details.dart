@@ -1,34 +1,45 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/layout/cubit/home_cubit.dart';
-import 'package:mediica_zone/models/home/home_model.dart';
+import 'package:mediica_zone/layout/cubit/home_states.dart';
+import 'package:mediica_zone/models/details/product_details.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({Key? key}) : super(key: key);
-
+  // const ProductDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: buildProductDetailsItem(),
+      body: BlocConsumer<HomeCubit, HomeStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            var cubit = HomeCubit.get(context);
+            return ConditionalBuilder(
+                condition: true,
+                builder: (context) => buildProductDetailsItem(cubit.model),
+                fallback: (context) =>
+                    Center(child: CircularProgressIndicator()));
+          }),
     );
   }
 
-  Widget buildProductDetailsItem() => Padding(
+  Widget buildProductDetailsItem(Product? model) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Nokia",
+              "${model!.productSlugEn}",
               style: TextStyle(
                   color: Colors.blue,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              "asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd",
+              "${model.productNameEn}",
               style: TextStyle(
                 color: Colors.black.withOpacity(.7),
               ),
@@ -45,7 +56,7 @@ class ProductDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '4.3',
+                      '${model.rate}',
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     Icon(
@@ -66,7 +77,7 @@ class ProductDetails extends StatelessWidget {
                     color: Colors.white,
                     child: Image(
                       image: NetworkImage(
-                        "http://medicazone.online/upload/products/thambnail/1726584113366864.jpg",
+                        "${model.productThambnail}",
                       ),
                       width: double.infinity,
                       height: 150,
@@ -101,13 +112,13 @@ class ProductDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "27844 EGP",
+                      "${model.discountPrice}",
                       style: TextStyle(
                           fontSize: 17.0,
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
-                    if (1 == null)
+                    if (model.discountPrice == null)
                       SizedBox(
                         height: 10,
                       ),
@@ -115,9 +126,9 @@ class ProductDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "28000 EGP",
+                          "${model.sellingPrice}",
                           style: TextStyle(
-                              decoration: 1 != null
+                              decoration: model.discountPrice != null
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
                               fontSize: 1 != null ? 14.0 : 17.0,
@@ -126,19 +137,19 @@ class ProductDetails extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        if (1 != null)
+                        if (model.discountPrice != null)
                           Container(
                             color: Colors.greenAccent.shade100,
                             padding: EdgeInsets.symmetric(horizontal: 5),
                             child: Text(
-                              '22% OFF',
+                              '${model.id}% OFF',
                               style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
                         Spacer(),
-                        if (1 != null)
+                        if (model.discountPrice != null)
                           Container(
                             decoration: BoxDecoration(
                                 color: Colors.yellowAccent,
@@ -151,7 +162,7 @@ class ProductDetails extends StatelessWidget {
                                   color: Colors.black, fontSize: 14.0),
                             ),
                           ),
-                        if (1 == null)
+                        if (model.discountPrice == null)
                           Container(
                             decoration: BoxDecoration(
                                 color: Colors.yellowAccent,
@@ -159,7 +170,7 @@ class ProductDetails extends StatelessWidget {
                                     BorderRadiusDirectional.circular(10)),
                             padding: EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              "Price Increase",
+                              "New",
                               style: TextStyle(
                                   color: Colors.black, fontSize: 14.0),
                             ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mediica_zone/models/details/product_details.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
 import 'package:mediica_zone/models/search/search_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
+import 'package:mediica_zone/models/user/user_data.dart';
 import 'package:mediica_zone/shared/components/components.dart';
+import 'package:mediica_zone/shared/components/constants.dart';
 
 import '../../models/categories/categories_model.dart';
 import '../../models/deals/deals.dart';
@@ -23,7 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ProductsScreen(),
     CategoriesScreen(),
     DealsScreen(),
-    // AccountScreen(),
+    AccountScreen(),
     // CartScreen(),
   ];
   List<BottomNavigationBarItem> items = [
@@ -39,10 +42,10 @@ class HomeCubit extends Cubit<HomeStates> {
       icon: Icon(Icons.discount_outlined),
       label: "Deals",
     ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(Icons.person_outline),
-    //   label: "My Account",
-    // ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person_outline),
+      label: "My Account",
+    ),
     // BottomNavigationBarItem(
     //   icon: Icon(Icons.shopping_cart),
     //   label: "Cart",
@@ -113,12 +116,37 @@ class HomeCubit extends Cubit<HomeStates> {
   void getSearch({String text = ""}) {
     emit(SearchLoadingState());
     DioHelper.getData(url: SEARCH + text).then((value) {
-      searchModel= SearchModel.fromJson(value.data);
+      searchModel = SearchModel.fromJson(value.data);
       emit(SearchSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(SearchFailureState(error.toString()));
     });
+  }
 
+  Product? model;
+
+  void getProductDetails() {
+    emit(ProductDetailsLoadingState());
+    DioHelper.getData(url: ProductDetails).then((value) {
+      model = Product.fromJson(value.data);
+      emit(ProductDetailsSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ProductDetailsFailureState(error.toString()));
+    });
+  }
+
+  UserDataModel? userDataModel;
+
+  void getUserData() {
+    emit(UserProfileLoadingState());
+    DioHelper.getData(url: UserProfile, authToken: token).then((value) {
+      userDataModel = UserDataModel.fromJson(value.data);
+      emit(UserProfileSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(UserProfileFailureState(error.toString()));
+    });
   }
 }

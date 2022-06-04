@@ -36,7 +36,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         "password_confirmation": passwordConfiramation,
       },
     ).then((value) {
-      print(value.data);
+      print(value.data.toString());
       loginModel = LoginModel.fromJson(value.data);
       emit(RegisterSuccessState(loginModel));
     }).catchError((error) {
