@@ -51,7 +51,7 @@ class ProductDetails extends StatelessWidget {
             ),
             Container(
               color: Colors.green,
-              width: 40,
+              width: 60,
               height: 25,
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(

@@ -4,6 +4,7 @@ import 'package:mediica_zone/models/details/product_details.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
 import 'package:mediica_zone/models/user/user_data.dart';
+import 'package:mediica_zone/modules/account/account.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
 
@@ -25,7 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ProductsScreen(),
     CategoriesScreen(),
     DealsScreen(),
-    // AccountScreen(),
+    AccountScreen(),
     // CartScreen(),
   ];
   List<BottomNavigationBarItem> items = [
@@ -41,10 +42,10 @@ class HomeCubit extends Cubit<HomeStates> {
       icon: Icon(Icons.discount_outlined),
       label: "Deals",
     ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(Icons.person_outline),
-    //   label: "My Account",
-    // ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person_outline),
+      label: "My Account",
+    ),
     // BottomNavigationBarItem(
     //   icon: Icon(Icons.shopping_cart),
     //   label: "Cart",
