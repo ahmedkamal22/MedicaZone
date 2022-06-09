@@ -17,26 +17,32 @@ class DealsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return SingleChildScrollView(
-          child: Container(
-            color: AppCubit.get(context).isDark ? color : Colors.white,
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              childAspectRatio: 1 / 1.56,
-              children: List.generate(
-                  cubit.dealsModel!.data!.items!.length,
-                  (index) => InkWell(
-                    onTap: () {
-                      navigateTo(
-                              context,
-                              ProductDetails(
-                                  cubit.homeModel!.data!.products![index]));
-                        },
-                    child: buildDealsItem(
-                        cubit.dealsModel!.data!.items![index], context),
-                  )),
+        return RefreshIndicator(
+          onRefresh: () async {
+            return await HomeCubit.get(context).getDealsData();
+          },
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Container(
+              color: AppCubit.get(context).isDark ? color : Colors.white,
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                childAspectRatio: 1 / 1.56,
+                children: List.generate(
+                    cubit.dealsModel!.data!.items!.length,
+                    (index) => InkWell(
+                          onTap: () {
+                            navigateTo(
+                                context,
+                                ProductDetails(
+                                    cubit.homeModel!.data!.products![index]));
+                          },
+                          child: buildDealsItem(
+                              cubit.dealsModel!.data!.items![index], context),
+                        )),
+              ),
             ),
           ),
         );
