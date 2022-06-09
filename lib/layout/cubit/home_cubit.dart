@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediica_zone/models/details/product_details.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
+import 'package:mediica_zone/models/login/login_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
-import 'package:mediica_zone/models/user/user_data.dart';
 import 'package:mediica_zone/modules/account/account.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
@@ -62,7 +61,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getHomeData() {
     emit(HomeLoadingState());
-    DioHelper.getData(url: HOME).then((value) {
+    DioHelper.getData(url: HOME, authToken: token).then((value) {
       homeModel = HomeModel.fromJson(value.data);
 
       emit(HomeSuccessState());
@@ -76,7 +75,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getSliderImages() {
     emit(SliderLoadingState());
-    DioHelper.getData(url: SLIDER).then((value) {
+    DioHelper.getData(url: SLIDER, authToken: token).then((value) {
       sliderModel = SliderModel.fromJson(value.data);
       emit(SliderLoadingState());
     }).catchError((error) {
@@ -89,7 +88,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getCategoriesData() {
     emit(CategoriesLoadingState());
-    DioHelper.getData(url: CATEGORIES).then((value) {
+    DioHelper.getData(url: CATEGORIES, authToken: token).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
       emit(CategoriesSuccessState());
     }).catchError((error) {
@@ -102,7 +101,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getDealsData() {
     emit(DealsLoadingState());
-    DioHelper.getData(url: DEALS).then((value) {
+    DioHelper.getData(url: DEALS, authToken: token).then((value) {
       dealsModel = DealsModel.fromJson(value.data);
       emit(DealsSuccessState());
     }).catchError((error) {
@@ -124,25 +123,13 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  Product? model;
-
-  void getProductDetails() {
-    emit(ProductDetailsLoadingState());
-    DioHelper.getData(url: ProductDetails).then((value) {
-      model = Product.fromJson(value.data);
-      emit(ProductDetailsSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(ProductDetailsFailureState(error.toString()));
-    });
-  }
-
-  UserDataModel? userDataModel;
+  User? userDataModel;
 
   void getUserData() {
     emit(UserProfileLoadingState());
-    DioHelper.getData(url: UserProfile, authToken: token).then((value) {
-      userDataModel = UserDataModel.fromJson(value.data);
+    DioHelper.getData(url: Profile, authToken: token).then((value) {
+      userDataModel = User.fromJson(value.data);
+      print(value.data.toString());
       emit(UserProfileSuccessState());
     }).catchError((error) {
       print(error.toString());

@@ -22,19 +22,6 @@ class LoginModel {
     expiresIn = json['expires_in'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_in'] = this.expiresIn;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
-    return data;
-  }
 }
 
 class User {
@@ -78,22 +65,5 @@ class User {
     lastSeen = json['last_seen'];
     userType = json['userType'];
     profilePhotoUrl = json['profile_photo_url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['current_team_id'] = this.currentTeamId;
-    data['profile_photo_path'] = this.profilePhotoPath;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['last_seen'] = this.lastSeen;
-    data['userType'] = this.userType;
-    data['profile_photo_url'] = this.profilePhotoUrl;
-    return data;
   }
 }

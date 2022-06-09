@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/categories/categories_model.dart';
-
 class MyBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
@@ -32,4 +30,4 @@ const onBoardingKeyValue = "onBoarding";
 
 const tokenKeyValue = "token";
 
-String token = "";
+late String token;
