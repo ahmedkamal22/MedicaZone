@@ -46,102 +46,104 @@ class ProductsScreen extends StatelessWidget {
 
   Widget productsBuilder(SliderModel sliderModel, HomeModel homeModel,
           CategoriesModel categoriesModel, context) =>
-      SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CarouselSlider(
-                  items: sliderModel.data!.items!
-                      .map((e) => ConditionalBuilder(
-                            condition: sliderModel.success,
-                            builder: (context) {
-                              return Image(
-                                image: NetworkImage("${e.sliderImg}"),
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              );
-                            },
-                            fallback: (context) =>
-                                Center(child: CircularProgressIndicator()),
-                          ))
-                      .toList(),
-                  options: CarouselOptions(
-                    height: 200,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 1.0,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 8010),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Categories",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 100,
-                    child: InkWell(
-                      onTap: () {
-                        HomeCubit.get(context).changeBottomNav(1);
-                      },
-                      highlightColor: Colors.grey[300],
-                      child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => buildCategories(
-                              categoriesModel.data!.items![index], context),
-                          separatorBuilder: (context, index) =>
-                              SizedBox(width: 10.0),
-                          itemCount: categoriesModel.data!.items!.length),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Products",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+      RefreshIndicator(
+        onRefresh: () async {
+          return await HomeCubit.get(context).getHomeData();
+        },
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CarouselSlider(
+                    items: sliderModel.data!.items!
+                        .map(
+                          (e) => Image(
+                            image: NetworkImage("${e.sliderImg}"),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                        .toList(),
+                    options: CarouselOptions(
+                      height: 200,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 1.0,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 8010),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                    )),
               ),
-            ),
-            Container(
-                color: Colors.grey[300],
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.56,
-                  children: List.generate(
-                    homeModel.data!.products!.length,
-                    (index) => InkWell(
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Categories",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 100,
+                      child: InkWell(
                         onTap: () {
-                          navigateTo(context,
-                              ProductDetails(homeModel.data!.products![index]));
+                          HomeCubit.get(context).changeBottomNav(1);
                         },
-                        child: buildProducts(
-                            homeModel.data!.products![index], context)),
-                  ),
-                ))
-          ],
+                        highlightColor: Colors.grey[300],
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => buildCategories(
+                                categoriesModel.data!.items![index], context),
+                            separatorBuilder: (context, index) =>
+                                SizedBox(width: 10.0),
+                            itemCount: categoriesModel.data!.items!.length),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Products",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  color: Colors.grey[300],
+                  child: GridView.count(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    childAspectRatio: 1 / 1.56,
+                    children: List.generate(
+                      homeModel.data!.products!.length,
+                      (index) => InkWell(
+                          onTap: () {
+                            navigateTo(
+                                context,
+                                ProductDetails(
+                                    homeModel.data!.products![index]));
+                          },
+                          child: buildProducts(
+                              homeModel.data!.products![index], context)),
+                    ),
+                  ))
+            ],
+          ),
         ),
       );
 

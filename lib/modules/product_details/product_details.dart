@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/layout/cubit/home_cubit.dart';
 import 'package:mediica_zone/layout/cubit/home_states.dart';
+import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 
 import '../../models/product/Product.dart';
@@ -191,6 +192,16 @@ class ProductDetails extends StatelessWidget {
                         ),
                     ],
                   ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  defaultButton(
+                      function: () async {
+                        await HomeCubit.get(context).makePayment(context);
+                      },
+                      text: "Pay With Card",
+                      isUpper: false,
+                      redius: 20),
                 ],
               ),
             ),
