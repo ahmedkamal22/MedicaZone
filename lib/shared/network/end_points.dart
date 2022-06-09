@@ -1,5 +1,7 @@
 const String LOGIN = "auth/login";
 
+const String Profile = "auth/user-profile";
+
 const String REGISTER = "auth/register";
 
 const String HOME = "zone/getProducts";
@@ -15,5 +17,3 @@ const String FAVOURITES = "zone/get-wishlist-product";
 const String SEARCH = "zone/getBySearch/";
 
 const String ProductDetails = "zone/product/details/";
-
-const String UserProfile = "auth/user-profile";

@@ -21,6 +21,7 @@ void main() async {
   bool? isDark = CacheHelper.getBooleanData(key: "isDark");
   bool? onBoarding = CacheHelper.getData(key: onBoardingKeyValue);
   token = CacheHelper.getData(key: tokenKeyValue);
+  print("Your token is: ${token} \n\n");
   if (onBoarding != null)
     widget = Home();
   else
@@ -57,8 +58,7 @@ class MyApp extends StatelessWidget {
               ..getHomeData()
               ..getSliderImages()
               ..getCategoriesData()
-                //..getUserData()
-    )
+              ..getUserData())
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},

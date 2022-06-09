@@ -47,7 +47,15 @@ class LoginScreen extends StatelessWidget {
           var cubit = LoginCubit.get(context);
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text("Medica Zone"),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close))
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -109,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                         ConditionalBuilder(
                           condition: state is! LoginLoadingState,
                           builder: (context) => defaultButton(
-                            text: "login",
+                            text: "Sign in",
                             redius: 60.0,
                             function: () {
                               if (formKey.currentState!.validate()) {
@@ -140,7 +148,7 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 navigateTo(context, RegisterScreen());
                               },
-                              child: Text("Register Here"),
+                              child: Text("Sign Up"),
                             )
                           ],
                         )

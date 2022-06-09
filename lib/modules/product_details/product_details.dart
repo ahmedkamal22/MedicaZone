@@ -112,89 +112,86 @@ class ProductDetails extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (model.discountPrice != null)
-                      Text(
-                        "${model.discountPrice} EGP",
-                        style: TextStyle(
-                            fontSize: 17.0,
-                            color: AppCubit.get(context).isDark
-                                ? Colors.lightBlueAccent
-                                : Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    if (model.discountPrice == null)
-                      SizedBox(
-                        height: 10,
-                      ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${model.sellingPrice} EGP",
-                          style: TextStyle(
-                              decoration: model.discountPrice != null
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                              fontSize:
-                                  model.discountPrice != null ? 14.0 : 17.0,
-                              color: model.discountPrice != null
-                                  ? Colors.grey
-                                  : AppCubit.get(context).isDark
-                                      ? Colors.lightBlueAccent
-                                      : Colors.black),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        if (model.discountPrice != null)
-                          Container(
-                            color: Colors.green.withOpacity(.2),
-                            child: Text(
-                              '${model.id}% OFF',
-                              style: TextStyle(
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        Spacer(),
-                        if (model.discountPrice == null)
-                          SizedBox(
-                            height: 15,
-                          ),
-                        if (model.discountPrice != null)
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.yellowAccent,
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(10)),
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              "Discount",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 14.0),
-                            ),
-                          ),
-                        if (model.discountPrice == null)
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.yellowAccent,
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(10)),
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              "New",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 14.0),
-                            ),
-                          ),
-                      ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (model.discountPrice != null)
+                    Text(
+                      "${model.discountPrice} EGP",
+                      style: TextStyle(
+                          fontSize: 17.0,
+                          color: AppCubit.get(context).isDark
+                              ? Colors.lightBlueAccent
+                              : Colors.black,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ],
-                ),
+                  if (model.discountPrice == null)
+                    SizedBox(
+                      height: 10,
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${model.sellingPrice} EGP",
+                        style: TextStyle(
+                            decoration: model.discountPrice != null
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            fontSize: model.discountPrice != null ? 14.0 : 17.0,
+                            color: model.discountPrice != null
+                                ? Colors.grey
+                                : AppCubit.get(context).isDark
+                                    ? Colors.lightBlueAccent
+                                    : Colors.black),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      if (model.discountPrice != null)
+                        Container(
+                          color: Colors.green.withOpacity(.2),
+                          child: Text(
+                            '${model.id}% OFF',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      Spacer(),
+                      if (model.discountPrice == null)
+                        SizedBox(
+                          height: 15,
+                        ),
+                      if (model.discountPrice != null)
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.yellowAccent,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(10)),
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            "Discount",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 14.0),
+                          ),
+                        ),
+                      if (model.discountPrice == null)
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.yellowAccent,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(10)),
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            "New",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 14.0),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

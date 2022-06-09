@@ -47,7 +47,15 @@ class RegisterScreen extends StatelessWidget {
           var cubit = RegisterCubit.get(context);
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text("Medica Zone"),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close))
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -164,7 +172,7 @@ class RegisterScreen extends StatelessWidget {
                         ConditionalBuilder(
                           condition: state is! RegisterLoadingState,
                           builder: (context) => defaultButton(
-                            text: "register",
+                            text: "Sign Up",
                             redius: 60.0,
                             function: () {
                               if (formKey.currentState!.validate()) {
@@ -173,7 +181,7 @@ class RegisterScreen extends StatelessWidget {
                                     password: password.text,
                                     name: name.text,
                                     passwordConfiramation:
-                                    passwordConfiramtion.text);
+                                        passwordConfiramtion.text);
                               }
                             },
                           ),
