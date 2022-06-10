@@ -18,7 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
       'pk_test_51L7NLXHjmyadU3ZuKjuHJHDfj37tZTTwfG14BCmuC3EcJErcp7eVbo33omnjpF3onclMvnUBUz7xXP81UCTydXKo00fT53Bykd';
-  // await Stripe.instance.applySettings();
+  await Stripe.instance.applySettings();
   DioHelper.int();
   await CacheHelper.int();
   Widget widget;

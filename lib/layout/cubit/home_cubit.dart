@@ -144,10 +144,10 @@ class HomeCubit extends Cubit<HomeStates> {
   Map<String, dynamic>? paymentIntentData;
 
   //Payment function using stripe
-  Future<void> makePayment(context) async {
+  Future<void> makePayment(context, amount) async {
     try {
-      paymentIntentData =
-          await createPaymentIntent('200', 'EGP'); //json.decode(response.body);
+      paymentIntentData = await createPaymentIntent(
+          amount, 'EGP'); //json.decode(response.body);
       // print('Response body==>${response.body.toString()}');
       await Stripe.instance
           .initPaymentSheet(
@@ -208,7 +208,7 @@ class HomeCubit extends Cubit<HomeStates> {
   createPaymentIntent(String amount, String currency) async {
     try {
       Map<String, dynamic> body = {
-        'amount': calculateAmount('200'),
+        'amount': calculateAmount(amount),
         'currency': currency,
         'payment_method_types[]': 'card'
       };
@@ -229,7 +229,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 20;
+    final a = (int.parse(amount)) * 99;
     return a.toString();
   }
 }

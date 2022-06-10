@@ -197,7 +197,8 @@ class ProductDetails extends StatelessWidget {
                   ),
                   defaultButton(
                       function: () async {
-                        await HomeCubit.get(context).makePayment(context);
+                        await HomeCubit.get(context)
+                            .makePayment(context, model.sellingPrice);
                       },
                       text: "Pay With Card",
                       isUpper: false,
