@@ -28,9 +28,10 @@ class RegisterScreen extends StatelessWidget {
           if (state is RegisterSuccessState) {
             if (state.loginModel.status == true) {
               CacheHelper.saveData(
-                      key: tokenKeyValue, value: state.loginModel.accessToken)
+                      key: tokenKeyValue,
+                      value: 'Bearer ' + state.loginModel.accessToken!)
                   .then((value) {
-                token = "${state.loginModel.accessToken}";
+                token = "${'Bearer ' + state.loginModel.accessToken!}";
                 // showToast(
                 //     message: state.loginModel.message,
                 //     states: ToastStates.SUCCESS);

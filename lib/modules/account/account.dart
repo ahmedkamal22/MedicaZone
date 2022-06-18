@@ -11,7 +11,6 @@ import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 class AccountScreen extends StatelessWidget {
   AccountScreen({Key? key}) : super(key: key);
   var name = TextEditingController();
-  var phone = TextEditingController();
   var email = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
@@ -22,6 +21,9 @@ class AccountScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          var model = LoginCubit.get(context).loginModel;
+          name.text = model!.user!.name!;
+          email.text = model.user!.email!;
           return Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
@@ -111,50 +113,39 @@ class AccountScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (state is LoginSuccessState)
-                      Column(
-                        children: [
-                          defaultFormField(
-                              keyboard_type: TextInputType.name,
-                              controller_type: name,
-                              label_text: "Name",
-                              prefix_icon: Icons.person,
-                              Validate: (String? value) {
-                                if (value!.isNotEmpty) {
-                                  "Name mustn't be empty!";
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          defaultFormField(
-                              keyboard_type: TextInputType.emailAddress,
-                              controller_type: email,
-                              label_text: "Email",
-                              prefix_icon: Icons.email_rounded,
-                              Validate: (String? value) {
-                                if (value!.isNotEmpty) {
-                                  "Email mustn't be empty!";
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          defaultFormField(
-                              keyboard_type: TextInputType.phone,
-                              controller_type: phone,
-                              label_text: "Phone",
-                              prefix_icon: Icons.phone,
-                              Validate: (String? value) {
-                                if (value!.isNotEmpty) {
-                                  "Phone mustn't be empty!";
-                                }
-                                return null;
-                              }),
-                        ],
-                      ),
+                    // if (state is LoginSuccessState)
+                    Column(
+                      children: [
+                        defaultFormField(
+                            keyboard_type: TextInputType.name,
+                            controller_type: name,
+                            label_text: "Name",
+                            prefix_icon: Icons.person,
+                            Validate: (String? value) {
+                              if (value!.isNotEmpty) {
+                                "Name mustn't be empty!";
+                              }
+                              return null;
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        defaultFormField(
+                            keyboard_type: TextInputType.emailAddress,
+                            controller_type: email,
+                            label_text: "Email",
+                            prefix_icon: Icons.email_rounded,
+                            Validate: (String? value) {
+                              if (value!.isNotEmpty) {
+                                "Email mustn't be empty!";
+                              }
+                              return null;
+                            }),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

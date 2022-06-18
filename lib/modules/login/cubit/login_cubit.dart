@@ -10,7 +10,7 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  late LoginModel loginModel;
+  LoginModel? loginModel;
   bool passwordVisible = true;
   IconData suffix = Icons.visibility;
 
@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginStates> {
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
       // print(value.data.toString());
-      emit(LoginSuccessState(loginModel));
+      emit(LoginSuccessState(loginModel!));
     }).catchError((error) {
       print(error.toString());
       emit(LoginFailureState(error.toString()));

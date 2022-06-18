@@ -28,9 +28,10 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginSuccessState) {
             if (state.loginModel.status == true) {
               CacheHelper.saveData(
-                      key: tokenKeyValue, value: state.loginModel.accessToken)
+                      key: tokenKeyValue,
+                      value: 'Bearer ' + state.loginModel.accessToken!)
                   .then((value) {
-                token = "${state.loginModel.accessToken}";
+                token = "${'Bearer ' + state.loginModel.accessToken!}";
                 navigateAndFinish(context, Home());
                 // showToast(
                 //     message: state.loginModel.message,

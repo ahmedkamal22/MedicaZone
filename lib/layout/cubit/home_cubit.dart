@@ -79,7 +79,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void getSliderImages() {
     emit(SliderLoadingState());
-    DioHelper.getData(url: SLIDER, authToken: token).then((value) {
+    DioHelper.getData(url: SLIDER).then((value) {
       sliderModel = SliderModel.fromJson(value.data);
       emit(SliderLoadingState());
     }).catchError((error) {
@@ -92,7 +92,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   dynamic getCategoriesData() {
     emit(CategoriesLoadingState());
-    DioHelper.getData(url: CATEGORIES, authToken: token).then((value) {
+    DioHelper.getData(url: CATEGORIES).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
       emit(CategoriesSuccessState());
     }).catchError((error) {

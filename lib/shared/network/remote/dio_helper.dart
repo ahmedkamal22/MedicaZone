@@ -18,7 +18,7 @@ class DioHelper {
       @required String? url,
       Map<String, dynamic>? query}) async {
     dio!.options.headers = {
-      "Authorization": 'Bearer ' + authToken!,
+      "Authorization": authToken,
       "Content-Type": "application/json",
     };
     return await dio!.get(url!, queryParameters: query);
