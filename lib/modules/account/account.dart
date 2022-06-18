@@ -22,8 +22,8 @@ class AccountScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var model = LoginCubit.get(context).loginModel;
-          name.text = model!.user!.name!;
-          email.text = model.user!.email!;
+          name.text = (model == null) ? '' : model!.user!.name!;
+          email.text = (model == null) ? '' : model.user!.email!;
           return Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
