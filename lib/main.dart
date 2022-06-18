@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:mediica_zone/modules/login/cubit/login_cubit.dart';
+import 'package:mediica_zone/modules/register/cubit/register_cubit.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
 import 'package:mediica_zone/shared/cubit/app_states.dart';
@@ -62,7 +64,9 @@ class MyApp extends StatelessWidget {
               ..getHomeData()
               ..getSliderImages()
               ..getCategoriesData()
-              ..getUserData())
+              ..getUserData()),
+        BlocProvider(create: (BuildContext context) => LoginCubit()),
+        BlocProvider(create: (BuildContext context) => RegisterCubit()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},

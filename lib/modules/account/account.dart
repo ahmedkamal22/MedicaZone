@@ -16,22 +16,21 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var model = LoginCubit.get(context).loginModel;
-          name.text = (model == null) ? '' : model!.user!.name!;
-          email.text = (model == null) ? '' : model.user!.email!;
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+    return BlocConsumer<LoginCubit, LoginStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var model = LoginCubit.get(context).loginModel;
+        name.text = (model == null) ? '' : model.user!.name!;
+        email.text = (model == null) ? '' : model.user!.email!;
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (state is! LoginSuccessState)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -113,13 +112,28 @@ class AccountScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // if (state is LoginSuccessState)
+                  if (state is LoginSuccessState)
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          "Profile",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         defaultFormField(
                             keyboard_type: TextInputType.name,
                             controller_type: name,
                             label_text: "Name",
+                            style: TextStyle(
+                                color: AppCubit.get(context).isDark
+                                    ? Colors.white
+                                    : Colors.black),
                             prefix_icon: Icons.person,
                             Validate: (String? value) {
                               if (value!.isNotEmpty) {
@@ -128,13 +142,17 @@ class AccountScreen extends StatelessWidget {
                               return null;
                             }),
                         SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
                         defaultFormField(
                             keyboard_type: TextInputType.emailAddress,
                             controller_type: email,
                             label_text: "Email",
                             prefix_icon: Icons.email_rounded,
+                            style: TextStyle(
+                                color: AppCubit.get(context).isDark
+                                    ? Colors.white
+                                    : Colors.black),
                             Validate: (String? value) {
                               if (value!.isNotEmpty) {
                                 "Email mustn't be empty!";
@@ -146,13 +164,12 @@ class AccountScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ],
-                ),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
