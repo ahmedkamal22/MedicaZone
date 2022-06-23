@@ -2,7 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mediica_zone/layout/home.dart';
+import 'package:mediica_zone/modules/login/login.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
@@ -33,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
               // showToast(
               //     message: state.loginModel.message,
               //     states: ToastStates.SUCCESS);
-              navigateAndFinish(context, Home());
+              navigateAndFinish(context, LoginScreen());
             });
           } else {
             showToast(

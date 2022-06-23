@@ -160,8 +160,14 @@ class AccountScreen extends StatelessWidget {
                               return null;
                             }),
                         SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
+                        defaultButton(
+                            function: () {
+                              signOut(context);
+                            },
+                            text: "Sign Out",
+                            redius: 20)
                       ],
                     ),
                 ],
