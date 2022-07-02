@@ -5,8 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mediica_zone/layout/cubit/home_cubit.dart';
 import 'package:mediica_zone/layout/cubit/home_states.dart';
+import 'package:mediica_zone/modules/login/login.dart';
 import 'package:mediica_zone/shared/components/components.dart';
+import 'package:mediica_zone/shared/components/constants.dart';
 import 'package:mediica_zone/shared/cubit/app_cubit.dart';
+import 'package:mediica_zone/shared/network/local/cache_helper.dart';
 
 import '../../models/product/Product.dart';
 
@@ -196,13 +199,32 @@ class ProductDetails extends StatelessWidget {
                     height: 25,
                   ),
                   defaultButton(
-                      function: () async {
-                        await HomeCubit.get(context)
-                            .makePayment(context, model.sellingPrice);
+                      function: () {
+                        String token = CacheHelper.getData(key: tokenKeyValue);
+                        print(token);
+                        if (token != null) {
+                          //call api add to cart
+                          HomeCubit.get(context).addToCart("${model.id}");
+                          showToast(
+                              message: "Added To Cart Successfully",
+                              states: ToastStates.SUCCESS);
+                          print(model.id);
+                        } else {
+                          //go to login screen
+                          navigateTo(context, LoginScreen());
+                        }
                       },
-                      text: "Pay With Card",
+                      text: "Add To Card",
                       isUpper: false,
                       redius: 20),
+                  // defaultButton(
+                  //     function: () async {
+                  //       await HomeCubit.get(context)
+                  //           .makePayment(context, model.sellingPrice);
+                  //     },
+                  //     text: "Pay With Card",
+                  //     isUpper: false,
+                  //     redius: 20),
                 ],
               ),
             ),

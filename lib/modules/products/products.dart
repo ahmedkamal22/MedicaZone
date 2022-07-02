@@ -68,7 +68,7 @@ class ProductsScreen extends StatelessWidget {
                         )
                         .toList(),
                     options: CarouselOptions(
-                      height: 200,
+                      height: MediaQuery.of(context).size.height * .2,
                       aspectRatio: 16 / 9,
                       viewportFraction: 1.0,
                       initialPage: 0,
@@ -171,14 +171,18 @@ class ProductsScreen extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: () {
-                      // HomeCubit.get(context)
-                      //     .changeFavourites(productsModel.id);
-                      print(model.id);
+                      HomeCubit.get(context).changefav("${model.id}");
+                      showToast(
+                          message: "Added Successfully To Favourites",
+                          states: ToastStates.SUCCESS);
+                      // print(model.id);
                     },
                     icon: Icon(
                       Icons.favorite_border_outlined,
-                      size: 22.0,
-                      color: Colors.blueGrey,
+                      size: 25.0,
+                      color: Colors.grey,
+                      //HomeCubit.get(context).favourites[model.id]!
+                      //                           ?Colors.red:
                     )),
               ],
             ),

@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:mediica_zone/models/cart/cart.dart';
 import 'package:mediica_zone/models/home/home_model.dart';
 import 'package:mediica_zone/models/login/login_model.dart';
 import 'package:mediica_zone/models/slider/slider_model.dart';
+import 'package:mediica_zone/models/wishlist/wislistmodel.dart';
 import 'package:mediica_zone/modules/account/account.dart';
+import 'package:mediica_zone/modules/cart/cart.dart';
+import 'package:mediica_zone/modules/favorites_screen/favorites_screen.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
+import 'package:mediica_zone/shared/network/local/cache_helper.dart';
 
 import '../../models/categories/categories_model.dart';
 import '../../models/deals/deals.dart';
 import '../../modules/categories/categories.dart';
-import '../../modules/deals/deals.dart';
 import '../../modules/products/products.dart';
 import '../../shared/network/end_points.dart';
 import '../../shared/network/remote/dio_helper.dart';
@@ -28,9 +32,10 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Widget> screens = [
     ProductsScreen(),
     CategoriesScreen(),
-    DealsScreen(),
+    // DealsScreen(),
     AccountScreen(),
-    // CartScreen(),
+    CartScreen(),
+    FavoritesScreen(),
   ];
   List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
@@ -41,18 +46,22 @@ class HomeCubit extends Cubit<HomeStates> {
       icon: Icon(Icons.wallet_giftcard_sharp),
       label: "categories",
     ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.discount_outlined),
-      label: "Deals",
-    ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(Icons.discount_outlined),
+    //   label: "Deals",
+    // ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person_outline),
       label: "My Account",
     ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(Icons.shopping_cart),
-    //   label: "Cart",
-    // ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.shopping_cart),
+      label: "Cart",
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.favorite),
+      label: "Favorite",
+    ),
   ];
   int currentIndex = 0;
 
@@ -62,12 +71,17 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   HomeModel? homeModel;
+  Map<int?, bool?> favourites = {};
 
   dynamic getHomeData() {
     emit(HomeLoadingState());
     DioHelper.getData(url: HOME, authToken: token).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-
+      homeModel!.data!.products!.forEach((element) {
+        favourites.addAll({
+          element.id: element.inFavourites,
+        });
+      });
       emit(HomeSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -141,9 +155,9 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
+  //Payment functions using stripe
   Map<String, dynamic>? paymentIntentData;
 
-  //Payment function using stripe
   Future<void> makePayment(context, amount) async {
     try {
       paymentIntentData = await createPaymentIntent(
@@ -231,5 +245,84 @@ class HomeCubit extends Cubit<HomeStates> {
   calculateAmount(String amount) {
     final a = (int.parse(amount)) * 99;
     return a.toString();
+  }
+
+  HomeModel? addFavModel;
+
+  dynamic changefav(String ProductId) {
+    DioHelper.postData(
+      url: FAVOURITEADD + ProductId,
+      data: {
+        'id': ProductId,
+      },
+    ).then((value) {
+      addFavModel = HomeModel.fromJson(value.data);
+      print(value.data);
+      emit(ShopSuccessChangeFavState());
+    }).catchError((onError) {
+      emit(ShopErrorChangeFavState());
+    });
+  }
+
+  wishlistProductModel? datafav;
+
+  dynamic getFavData() {
+    DioHelper.getData(url: FAVOURITES, authToken: token).then((value) {
+      datafav = wishlistProductModel.fromJson(value.data);
+      print(datafav!.data!.items!.length);
+      emit(AddItemsecssesToFavState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AddItemerrorToFavState());
+    });
+  }
+
+  wishlistProductModel? removefav;
+
+  dynamic removeFavData(String ProductId) {
+    print(ProductId);
+    DioHelper.getData(url: FAVOURITEREMOVE + ProductId, authToken: token)
+        .then((value) {
+      removefav = wishlistProductModel.fromJson(value.data);
+      emit(RemoveItemsecssesToFavState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(RemoveItemerrorToFavState());
+    });
+  }
+
+  getCartModel? dataCart;
+
+  dynamic getCartData() {
+    print(CacheHelper.getData(key: tokenKeyValue));
+    DioHelper.getData(
+      url: CARTGET,
+      authToken: CacheHelper.getData(key: tokenKeyValue),
+    ).then((value) {
+      emit(LoadedCartGetData());
+      dataCart = getCartModel.fromJson(value.data);
+      //print(dataCart!.data!.items!.length);
+      emit(SecssesCartGetData());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorCartGetData());
+    });
+  }
+
+  getCartModel? addCart;
+
+  void addToCart(String ProductId) {
+    DioHelper.postData(
+      authToken: CacheHelper.getData(key: tokenKeyValue),
+      url: CARTADD + ProductId,
+      data: {
+        'product_id': ProductId,
+      },
+    ).then((value) {
+      addCart = getCartModel.fromJson(value.data);
+      emit(ShopSuccessChangeCartAddState());
+    }).catchError((onError) {
+      emit(ShopErrorChangeCartAddState());
+    });
   }
 }

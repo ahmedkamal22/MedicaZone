@@ -1,12 +1,70 @@
-import 'Brand.dart';
-import 'Category.dart';
+class wishlistProductModel {
+  bool? success;
+  int? code;
+  String? locale;
+  String? message;
+  Data? data;
 
-class Product {
+  wishlistProductModel(
+      {this.success, this.code, this.locale, this.message, this.data});
+
+  wishlistProductModel.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
+    code = json['code'];
+    locale = json['locale'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+}
+
+class Data {
+  List<Items>? items;
+
+  Data({this.items});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add(new Items.fromJson(v));
+      });
+    }
+  }
+}
+
+class Items {
   int? id;
-  int? brandId;
-  int? categoryId;
-  int? subcategoryId;
-  int? subsubcategoryId;
+  int? userId;
+  int? productId;
+  String? createdAt;
+  String? updatedAt;
+  Productwish? product;
+
+  Items(
+      {this.id,
+      this.userId,
+      this.productId,
+      this.createdAt,
+      this.updatedAt,
+      this.product});
+
+  Items.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    productId = json['product_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    product =
+        json['product'] != null ? Productwish.fromJson(json['product']) : null;
+  }
+}
+
+class Productwish {
+  var id;
+  var brandId;
+  var categoryId;
+  var subcategoryId;
+  var subsubcategoryId;
   String? productNameEn;
   String? productNameAr;
   String? productSlugEn;
@@ -26,20 +84,17 @@ class Product {
   String? longDescpEn;
   String? longDescpAr;
   String? productThambnail;
-  int? hotDeals;
-  int? featured;
-  int? specialOffer;
-  int? specialDeals;
-  int? status;
+  var hotDeals;
+  var featured;
+  var specialOffer;
+  var specialDeals;
+  var status;
   String? createdAt;
   String? updatedAt;
-  int? adminsId;
-  double? rate;
-  bool? inFavourites;
-  Brand? brand;
-  Category? category;
+  var adminsId;
+  var rate;
 
-  Product(
+  Productwish(
       {this.id,
       this.brandId,
       this.categoryId,
@@ -51,7 +106,6 @@ class Product {
       this.productSlugAr,
       this.productCode,
       this.productQty,
-      this.inFavourites,
       this.productTagsEn,
       this.productTagsAr,
       this.productSizeEn,
@@ -73,13 +127,10 @@ class Product {
       this.createdAt,
       this.updatedAt,
       this.adminsId,
-      this.rate,
-      this.brand,
-      this.category});
+      this.rate});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  Productwish.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    inFavourites = json['inFavourites'];
     brandId = json['brand_id'];
     categoryId = json['category_id'];
     subcategoryId = json['subcategory_id'];
@@ -111,10 +162,6 @@ class Product {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
-    rate = double.parse(json['rate'].toString());
-    brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
-    category = json['category'] != null
-        ? new Category.fromJson(json['category'])
-        : null;
+    rate = json['rate'];
   }
 }

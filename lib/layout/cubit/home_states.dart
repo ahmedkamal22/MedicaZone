@@ -83,3 +83,40 @@ class UserProfileFailureState extends HomeStates {
 
   UserProfileFailureState(this.error);
 }
+
+//                   New States
+class ShopSuccessAddItemToCartState extends HomeStates {}
+
+class ShopSuccessRemoveItemFromCartState extends HomeStates {}
+
+class ShopSuccessCalcTotalState extends HomeStates {}
+
+class ShopSuccessChangeFavState extends HomeStates {}
+
+class ShopErrorChangeFavState extends HomeStates {}
+
+class ShopSuccessChangeCartAddState extends HomeStates {}
+
+class ShopErrorChangeCartAddState extends HomeStates {}
+
+class AddItemsecssesToFavState extends HomeStates {}
+
+class AddItemerrorToFavState extends HomeStates {}
+
+class RemoveItemFromFavState extends HomeStates {}
+
+class ShopSuccessFavState extends HomeStates {}
+
+class RemoveItemsecssesToFavState extends HomeStates {}
+
+class RemoveItemerrorToFavState extends HomeStates {}
+
+class LoadedCartGetData extends HomeStates {}
+
+class SecssesCartGetData extends HomeStates {}
+
+class ErrorCartGetData extends HomeStates {}
+
+class ShopPlusQuantityState extends HomeStates {}
+
+class ShopMinusQuantityState extends HomeStates {}

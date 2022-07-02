@@ -16,7 +16,18 @@ class Home extends StatelessWidget {
           var cubit = HomeCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text("Medica Zone"),
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 20,
+                    backgroundImage: AssetImage(
+                      'assets/images/medical.png',
+                    ),
+                  ),
+                  Text("Medica Zone"),
+                ],
+              ),
               actions: [
                 IconButton(
                     onPressed: () {
