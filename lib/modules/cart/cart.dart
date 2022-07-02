@@ -25,7 +25,6 @@ class _CartScreenState extends State<CartScreen> {
     // TODO: implement initState
     //HomeCubit().getCartData();
     BlocProvider.of<HomeCubit>(context).getCartData();
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     BlocProvider.of<HomeCubit>(context)
         .dataCart!
         .data!
@@ -272,7 +271,10 @@ Widget buildProducts(Items modelitem, context, index) => modelitem.product !=
                         ),
                       ),
                       FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          HomeCubit.get(context).removeCartData(modelitem.id);
+                          BlocProvider.of<HomeCubit>(context).getCartData();
+                        },
                         mini: true,
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 10),

@@ -25,3 +25,5 @@ const String CARTADD = "auth/add-to-cart/";
 const String SEARCH = "zone/getBySearch/";
 
 const String ProductDetails = "zone/product/details/";
+
+const String CARTMOVE = "zone/remove-from-cart/";
