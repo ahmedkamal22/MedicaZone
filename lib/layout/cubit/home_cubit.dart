@@ -11,6 +11,7 @@ import 'package:mediica_zone/models/slider/slider_model.dart';
 import 'package:mediica_zone/models/wishlist/wislistmodel.dart';
 import 'package:mediica_zone/modules/account/account.dart';
 import 'package:mediica_zone/modules/cart/cart.dart';
+import 'package:mediica_zone/modules/deals/deals.dart';
 import 'package:mediica_zone/modules/favorites_screen/favorites_screen.dart';
 import 'package:mediica_zone/shared/components/components.dart';
 import 'package:mediica_zone/shared/components/constants.dart';
@@ -32,27 +33,23 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Widget> screens = [
     ProductsScreen(),
     CategoriesScreen(),
-    // DealsScreen(),
-    AccountScreen(),
+    DealsScreen(),
     CartScreen(),
     FavoritesScreen(),
+    AccountScreen(),
   ];
   List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(
       icon: Icon(Icons.home_outlined),
-      label: "home",
+      label: "Home",
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.wallet_giftcard_sharp),
-      label: "categories",
+      label: "Categories",
     ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(Icons.discount_outlined),
-    //   label: "Deals",
-    // ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.person_outline),
-      label: "My Account",
+      icon: Icon(Icons.discount_outlined),
+      label: "Deals",
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),
@@ -60,7 +57,11 @@ class HomeCubit extends Cubit<HomeStates> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite),
-      label: "Favorite",
+      label: "Favorites",
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person_outline),
+      label: "My Account",
     ),
   ];
   int currentIndex = 0;
