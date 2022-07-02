@@ -120,3 +120,7 @@ class ErrorCartGetData extends HomeStates {}
 class ShopPlusQuantityState extends HomeStates {}
 
 class ShopMinusQuantityState extends HomeStates {}
+
+class RemoveItemsecssesCartState extends HomeStates {}
+
+class RemoveItemerrorCartState extends HomeStates {}

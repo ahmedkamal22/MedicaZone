@@ -326,4 +326,21 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(ShopErrorChangeCartAddState());
     });
   }
+
+  getCartModel? removeCart;
+
+  dynamic removeCartData(int id) {
+    print(id);
+    DioHelper.getData(
+      url: CARTMOVE + id.toString(),
+      // authToken: token,
+    ).then((value) {
+      removeCart = getCartModel.fromJson(value.data);
+      print(value.data);
+      emit(RemoveItemsecssesCartState());
+    }).catchError((error) {
+      print("${error.toString()}");
+      emit(RemoveItemerrorCartState());
+    });
+  }
 }
