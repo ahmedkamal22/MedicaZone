@@ -25,7 +25,7 @@ Widget defaultButton(
           isUpper ? text!.toUpperCase() : text!,
           style: TextStyle(
             color: Colors.white,
-          ),
+            fontSize: 16),
         ),
       ),
     );
@@ -117,7 +117,7 @@ void showFullText(String text) {
 }
 
 Widget myDivider() => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
         width: double.infinity,
         height: 1,

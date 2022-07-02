@@ -14,6 +14,14 @@ const String CATEGORIES = "zone/getCategories";
 
 const String FAVOURITES = "zone/get-wishlist-product";
 
+const String FAVOURITEADD = "zone/add-to-wishlist/";
+
+const String FAVOURITEREMOVE = "zone/wishlist-remove/";
+
+const String CARTGET = "auth/get-cart-data";
+
+const String CARTADD = "auth/add-to-cart/";
+
 const String SEARCH = "zone/getBySearch/";
 
 const String ProductDetails = "zone/product/details/";
