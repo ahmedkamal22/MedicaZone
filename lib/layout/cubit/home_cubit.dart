@@ -61,7 +61,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person_outline),
-      label: "My Account",
+      label: "Acc",
     ),
   ];
   int currentIndex = 0;
