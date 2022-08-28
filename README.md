@@ -1,6 +1,6 @@
 # mediica_zone
 
-A new Flutter project.
+eCommerce App for medical items.
 
 ## Getting Started
 
