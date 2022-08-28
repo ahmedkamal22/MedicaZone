@@ -1,15 +1,29 @@
 const String LOGIN = "auth/login";
 
-const String REGISTER = "register";
+const String Profile = "auth/user-profile";
 
-const String HOME = "getProducts";
+const String REGISTER = "auth/register";
 
-const String SLIDER = "sliders";
+const String HOME = "zone/getProducts";
 
-const String DEALS = "hotdeals";
+const String SLIDER = "zone/sliders";
 
-const String CATEGORIES = "getCategories";
+const String DEALS = "zone/hotdeals";
 
-const String FAVOURITES = "get-wishlist-product";
+const String CATEGORIES = "zone/getCategories";
 
-const String SEARCH = "getBySearch/";
+const String FAVOURITES = "zone/get-wishlist-product";
+
+const String FAVOURITEADD = "zone/add-to-wishlist/";
+
+const String FAVOURITEREMOVE = "zone/wishlist-remove/";
+
+const String CARTGET = "auth/get-cart-data";
+
+const String CARTADD = "auth/add-to-cart/";
+
+const String SEARCH = "zone/getBySearch/";
+
+const String ProductDetails = "zone/product/details/";
+
+const String CARTMOVE = "zone/remove-from-cart/";

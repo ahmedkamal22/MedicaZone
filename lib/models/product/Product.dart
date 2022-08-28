@@ -1,37 +1,7 @@
-class DealsModel {
-  bool? success;
-  int? code;
-  String? locale;
-  String? message;
-  Data? data;
+import 'Brand.dart';
+import 'Category.dart';
 
-  DealsModel({this.success, this.code, this.locale, this.message, this.data});
-
-  DealsModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    code = json['code'];
-    locale = json['locale'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-}
-
-class Data {
-  List<DealsItems>? items;
-
-  Data({this.items});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['items'] != null) {
-      items = <DealsItems>[];
-      json['items'].forEach((v) {
-        items!.add(new DealsItems.fromJson(v));
-      });
-    }
-  }
-}
-
-class DealsItems {
+class Product {
   int? id;
   int? brandId;
   int? categoryId;
@@ -65,8 +35,11 @@ class DealsItems {
   String? updatedAt;
   int? adminsId;
   double? rate;
+  bool? inFavourites;
+  Brand? brand;
+  Category? category;
 
-  DealsItems(
+  Product(
       {this.id,
       this.brandId,
       this.categoryId,
@@ -78,6 +51,7 @@ class DealsItems {
       this.productSlugAr,
       this.productCode,
       this.productQty,
+      this.inFavourites,
       this.productTagsEn,
       this.productTagsAr,
       this.productSizeEn,
@@ -99,10 +73,13 @@ class DealsItems {
       this.createdAt,
       this.updatedAt,
       this.adminsId,
-      this.rate});
+      this.rate,
+      this.brand,
+      this.category});
 
-  DealsItems.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    inFavourites = json['inFavourites'];
     brandId = json['brand_id'];
     categoryId = json['category_id'];
     subcategoryId = json['subcategory_id'];
@@ -134,6 +111,10 @@ class DealsItems {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
-    rate =  double.parse(json['rate'].toString());
+    rate = double.parse(json['rate'].toString());
+    brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
+    category = json['category'] != null
+        ? new Category.fromJson(json['category'])
+        : null;
   }
 }

@@ -1,13 +1,14 @@
-class DealsModel {
+class wishlistProductModel {
   bool? success;
   int? code;
   String? locale;
   String? message;
   Data? data;
 
-  DealsModel({this.success, this.code, this.locale, this.message, this.data});
+  wishlistProductModel(
+      {this.success, this.code, this.locale, this.message, this.data});
 
-  DealsModel.fromJson(Map<String, dynamic> json) {
+  wishlistProductModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     code = json['code'];
     locale = json['locale'];
@@ -17,26 +18,53 @@ class DealsModel {
 }
 
 class Data {
-  List<DealsItems>? items;
+  List<Items>? items;
 
   Data({this.items});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <DealsItems>[];
+      items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(new DealsItems.fromJson(v));
+        items!.add(new Items.fromJson(v));
       });
     }
   }
 }
 
-class DealsItems {
+class Items {
   int? id;
-  int? brandId;
-  int? categoryId;
-  int? subcategoryId;
-  int? subsubcategoryId;
+  int? userId;
+  int? productId;
+  String? createdAt;
+  String? updatedAt;
+  Productwish? product;
+
+  Items(
+      {this.id,
+      this.userId,
+      this.productId,
+      this.createdAt,
+      this.updatedAt,
+      this.product});
+
+  Items.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    productId = json['product_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    product =
+        json['product'] != null ? Productwish.fromJson(json['product']) : null;
+  }
+}
+
+class Productwish {
+  var id;
+  var brandId;
+  var categoryId;
+  var subcategoryId;
+  var subsubcategoryId;
   String? productNameEn;
   String? productNameAr;
   String? productSlugEn;
@@ -56,17 +84,17 @@ class DealsItems {
   String? longDescpEn;
   String? longDescpAr;
   String? productThambnail;
-  int? hotDeals;
-  int? featured;
-  int? specialOffer;
-  int? specialDeals;
-  int? status;
+  var hotDeals;
+  var featured;
+  var specialOffer;
+  var specialDeals;
+  var status;
   String? createdAt;
   String? updatedAt;
-  int? adminsId;
-  double? rate;
+  var adminsId;
+  var rate;
 
-  DealsItems(
+  Productwish(
       {this.id,
       this.brandId,
       this.categoryId,
@@ -101,7 +129,7 @@ class DealsItems {
       this.adminsId,
       this.rate});
 
-  DealsItems.fromJson(Map<String, dynamic> json) {
+  Productwish.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandId = json['brand_id'];
     categoryId = json['category_id'];
@@ -134,6 +162,6 @@ class DealsItems {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     adminsId = json['admins_id'];
-    rate =  double.parse(json['rate'].toString());
+    rate = json['rate'];
   }
 }
