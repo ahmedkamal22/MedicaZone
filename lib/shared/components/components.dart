@@ -31,35 +31,64 @@ Widget defaultButton(
     );
 
 Widget defaultFormField({
-  @required TextInputType? keyboard_type,
-  @required TextEditingController? controller_type,
-  @required String? label_text,
-  @required IconData? prefix_icon,
-  IconData? suffix_icon,
+  required TextEditingController controller,
+  required TextInputType keyboardType,
+  required String label,
+  required IconData prefix,
+  required String? Function(String?)? validate,
+  required Color? generalWidgetsColor,
+  Function(String)? onChanged,
+  Function(String)? onSubmitted,
+  VoidCallback? onTap,
   TextStyle? style,
-  Function(String)? onChange,
-  Function(String)? onSubmit,
-  @required String? Function(String?)? Validate,
-  VoidCallback? isPasswordVisible,
-  bool isVisible = false,
+  IconData? suffix,
+  double radius = 0.0,
+  bool isUpper = false,
+  VoidCallback? suffixPressed,
+  bool isPassword = false,
 }) =>
     TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      onFieldSubmitted: onSubmitted,
+      validator: validate,
+      onChanged: onChanged,
+      onTap: onTap,
+      obscureText: isPassword,
       style: style,
-      keyboardType: keyboard_type,
-      controller: controller_type,
-      obscureText: isVisible,
-      onChanged: onChange,
-      onFieldSubmitted: onSubmit,
-      validator: Validate,
+      //this for changing input color
       decoration: InputDecoration(
-        labelText: label_text,
-        prefixIcon: Icon(prefix_icon),
-        suffixIcon: suffix_icon != null
-            ? IconButton(onPressed: isPasswordVisible, icon: Icon(suffix_icon))
-            : null,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: BorderSide(
+            color: generalWidgetsColor!,
+          ),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: BorderSide(
+            color: generalWidgetsColor,
+          ),
+        ),
+        //this for changing border color
+        fillColor: generalWidgetsColor,
+        //this for changing border color
+        labelText: isUpper ? label.toUpperCase() : label,
+        labelStyle: style,
+        //this for changing label color
+        prefixIcon: Icon(
+          prefix,
+          color: generalWidgetsColor,
+        ),
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: suffixPressed,
+                icon: Icon(
+                  suffix,
+                  color: generalWidgetsColor,
+                ),
+              )
+            : null,
       ),
     );
 

@@ -48,7 +48,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           builder: (context) =>
               cubit.datafav != null && cubit.datafav!.data!.items!.length != 0
                   ? productsBuilder(cubit.datafav!, cubit.homeModel!, context)
-                  : Center(child: Text("Whilist is empty")),
+                  : Center(
+                      child: Text(
+                      "Whilist is empty",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          color: AppCubit.get(context).isDark
+                              ? Colors.white
+                              : Colors.black,
+                          fontWeight: FontWeight.normal),
+                    )),
           fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },

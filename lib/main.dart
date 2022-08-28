@@ -27,7 +27,7 @@ void main() async {
   bool? isDark = CacheHelper.getBooleanData(key: "isDark");
   bool? onBoarding = CacheHelper.getData(key: onBoardingKeyValue);
   token = CacheHelper.getData(key: tokenKeyValue);
-  print("Your token is: ${token} \n\n");
+  if (token != null) print(token);
   if (onBoarding != null)
     widget = Home();
   else

@@ -22,8 +22,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    //HomeCubit().getCartData();
+    //
+    HomeCubit().getCartData();
     BlocProvider.of<HomeCubit>(context).getCartData();
     BlocProvider.of<HomeCubit>(context)
         .dataCart!
@@ -32,7 +32,6 @@ class _CartScreenState extends State<CartScreen> {
         .forEach((element) {
       str += (int.parse(element.product!.sellingPrice.toString()) *
           int.parse(element.quantity.toString()));
-      print(str);
     });
     super.initState();
   }
@@ -50,7 +49,15 @@ class _CartScreenState extends State<CartScreen> {
           builder: (context) => cubit.dataCart != null &&
                   cubit.dataCart!.data!.items!.length != 0
               ? productsBuilder(cubit.dataCart!, cubit.homeModel!, context, str)
-              : Center(child: Text("Cart is empty")),
+              : Center(
+                  child: Text(
+                  "Cart is empty",
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: AppCubit.get(context).isDark
+                          ? Colors.white
+                          : Colors.black,
+                      fontWeight: FontWeight.normal),
+                )),
           fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
@@ -70,7 +77,6 @@ Widget productsBuilder(
             .forEach((element) {
           str += (int.parse(element.product!.sellingPrice.toString()) *
               int.parse(element.quantity.toString()));
-          print(str);
         });
       },
       child: Container(
@@ -267,7 +273,14 @@ Widget buildProducts(Items modelitem, context, index) => modelitem.product !=
                               .items![index]
                               .quantity
                               .toString()),
-                          style: TextStyle(fontSize: 23.0),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  color: AppCubit.get(context).isDark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 23),
                         ),
                       ),
                       FloatingActionButton(

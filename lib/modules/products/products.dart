@@ -16,7 +16,8 @@ import '../../models/home/home_model.dart';
 import '../../models/product/Product.dart';
 
 class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({Key? key}) : super(key: key);
+  ProductsScreen({Key? key}) : super(key: key);
+  Color defaultColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +178,16 @@ class ProductsScreen extends StatelessWidget {
                           states: ToastStates.SUCCESS);
                       // print(model.id);
                     },
-                    icon: Icon(
-                      Icons.favorite_border_outlined,
-                      size: 25.0,
-                      color: Colors.grey,
-                      //HomeCubit.get(context).favourites[model.id]!
-                      //                           ?Colors.red:
+                    icon: CircleAvatar(
+                      radius: 15,
+                      backgroundColor: defaultColor,
+                      child: Icon(
+                        Icons.favorite_border_outlined,
+                        size: 25.0,
+                        color: Colors.grey,
+                        //HomeCubit.get(context).favourites[model.id]!
+                        //                           ?Colors.red:
+                      ),
                     )),
               ],
             ),

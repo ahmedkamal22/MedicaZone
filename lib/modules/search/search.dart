@@ -29,27 +29,50 @@ class SearchScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     defaultFormField(
-                      keyboard_type: TextInputType.text,
-                      controller_type: searchController,
-                      label_text: "search",
-                      prefix_icon: Icons.search,
-                      Validate: (String? search) {
-                        if (search!.isEmpty) {
-                          return "Type Words to search";
+                      controller: searchController,
+                      keyboardType: TextInputType.text,
+                      label: "Search",
+                      prefix: Icons.search,
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return "Type your desired word to be searched";
                         }
                         return null;
                       },
-                      onChange: (value) {
-                        cubit.getSearch(text: value);
-                      },
-                      // onSubmit: (String text) {
-                      //   HomeCubit.get(context).searchProducts(text);
-                      // },
+                      generalWidgetsColor: AppCubit.get(context).isDark
+                          ? Colors.grey[200]
+                          : Colors.black.withOpacity(.6),
+                      radius: 20.0,
                       style: TextStyle(
                           color: AppCubit.get(context).isDark
-                              ? Colors.white
-                              : Colors.black),
+                              ? Colors.grey[200]
+                              : Colors.black.withOpacity(.6)),
+                      onChanged: (value) {
+                        cubit.getSearch(text: value);
+                      },
                     ),
+                    // defaultFormField(
+                    //   keyboard_type: TextInputType.text,
+                    //   controller_type: searchController,
+                    //   label_text: "search",
+                    //   prefix_icon: Icons.search,
+                    //   Validate: (String? search) {
+                    //     if (search!.isEmpty) {
+                    //       return "Type Words to search";
+                    //     }
+                    //     return null;
+                    //   },
+                    //   onChange: (value) {
+                    //     cubit.getSearch(text: value);
+                    //   },
+                    //   // onSubmit: (String text) {
+                    //   //   HomeCubit.get(context).searchProducts(text);
+                    //   // },
+                    //   style: TextStyle(
+                    //       color: AppCubit.get(context).isDark
+                    //           ? Colors.white
+                    //           : Colors.black),
+                    // ),
                     SizedBox(
                       height: 40,
                     ),

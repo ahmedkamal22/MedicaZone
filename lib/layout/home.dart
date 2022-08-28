@@ -25,6 +25,9 @@ class Home extends StatelessWidget {
                       'assets/images/medical.png',
                     ),
                   ),
+                  SizedBox(
+                    width: 3,
+                  ),
                   Text("Medica Zone"),
                 ],
               ),

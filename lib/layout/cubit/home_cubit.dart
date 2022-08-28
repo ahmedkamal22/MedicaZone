@@ -148,7 +148,6 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(UserProfileLoadingState());
     DioHelper.getData(url: Profile, authToken: token).then((value) {
       userDataModel = User.fromJson(value.data);
-      print(value.data.toString());
       emit(UserProfileSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -244,7 +243,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 99;
+    final a = (int.parse(amount)) * 100;
     return a.toString();
   }
 
@@ -258,7 +257,6 @@ class HomeCubit extends Cubit<HomeStates> {
       },
     ).then((value) {
       addFavModel = HomeModel.fromJson(value.data);
-      print(value.data);
       emit(ShopSuccessChangeFavState());
     }).catchError((onError) {
       emit(ShopErrorChangeFavState());
@@ -268,9 +266,10 @@ class HomeCubit extends Cubit<HomeStates> {
   wishlistProductModel? datafav;
 
   dynamic getFavData() {
+    token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9tZWRpY2F6b25lLm9ubGluZVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2MTY4MzAyNiwiZXhwIjoxNjYxNjg2NjI2LCJuYmYiOjE2NjE2ODMwMjYsImp0aSI6IldaUFBsWjhnUnpwU0JabHYiLCJzdWIiOjI3LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.UlfPDxkO07xQmjYVYV8Pv9ATktxlnuQ1nS7nGdVAGWg";
     DioHelper.getData(url: FAVOURITES, authToken: token).then((value) {
       datafav = wishlistProductModel.fromJson(value.data);
-      print(datafav!.data!.items!.length);
       emit(AddItemsecssesToFavState());
     }).catchError((error) {
       print(error.toString());

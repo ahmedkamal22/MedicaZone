@@ -31,9 +31,6 @@ class LoginScreen extends StatelessWidget {
                 .then((value) {
               token = "${'Bearer ' + state.loginModel.accessToken!}";
               navigateAndFinish(context, Home());
-              // showToast(
-              //     message: state.loginModel.message,
-              //     states: ToastStates.SUCCESS);
             });
           } else {
             showToast(
@@ -47,13 +44,6 @@ class LoginScreen extends StatelessWidget {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text("Medica Zone"),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close))
-            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -65,49 +55,60 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       defaultFormField(
-                          style: TextStyle(
-                              color: AppCubit.get(context).isDark
-                                  ? Colors.white
-                                  : Colors.black),
-                          keyboard_type: TextInputType.emailAddress,
-                          controller_type: email,
-                          label_text: "Email",
-                          prefix_icon: Icons.email,
-                          Validate: (emailCheck) {
-                            if (emailCheck!.isEmpty) {
-                              return "Email mustn't be empty";
-                            }
-                            return null;
-                          }),
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        label: "Email Address",
+                        prefix: Icons.email_outlined,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Email mustn't be empty!!";
+                          }
+                          return null;
+                        },
+                        radius: 20.0,
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.7),
+                        style: TextStyle(
+                          color: AppCubit.get(context).isDark
+                              ? Colors.grey[200]
+                              : Colors.black.withOpacity(.6),
+                        ),
+                      ),
                       SizedBox(
                         height: 20.0,
                       ),
                       defaultFormField(
-                        style: TextStyle(
-                            color: AppCubit.get(context).isDark
-                                ? Colors.white
-                                : Colors.black),
-                        keyboard_type: TextInputType.visiblePassword,
-                        controller_type: password,
-                        label_text: "Password",
-                        prefix_icon: Icons.lock,
-                        suffix_icon: cubit.suffix,
-                        isVisible: cubit.passwordVisible,
-                        isPasswordVisible: () {
+                        controller: password,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: cubit.passwordVisible,
+                        suffixPressed: () {
                           cubit.changePasswordVisibility();
+                          ;
                         },
-                        onSubmit: (value) {
+                        label: "Password",
+                        prefix: Icons.lock,
+                        suffix: cubit.suffix,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Password mustn't be empty!!";
+                          }
+                          return null;
+                        },
+                        radius: 20.0,
+                        onSubmitted: (value) {
                           if (formKey.currentState!.validate()) {
                             cubit.userLogin(
                                 email: email.text, password: password.text);
                           }
                         },
-                        Validate: (passwordCheck) {
-                          if (passwordCheck!.isEmpty) {
-                            return "Password mustn't be empty";
-                          }
-                          return null;
-                        },
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.6),
+                        style: TextStyle(
+                            color: AppCubit.get(context).isDark
+                                ? Colors.grey[200]
+                                : Colors.black.withOpacity(.6)),
                       ),
                       SizedBox(
                         height: 30.0,

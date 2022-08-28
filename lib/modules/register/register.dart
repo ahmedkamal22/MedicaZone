@@ -14,7 +14,7 @@ import 'cubit/register_state.dart';
 class RegisterScreen extends StatelessWidget {
   var email = TextEditingController();
   var password = TextEditingController();
-  var passwordConfiramtion = TextEditingController();
+  var passwordConfirmation = TextEditingController();
   var name = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -33,6 +33,8 @@ class RegisterScreen extends StatelessWidget {
               // showToast(
               //     message: state.loginModel.message,
               //     states: ToastStates.SUCCESS);
+              // HomeCubit.get(context).getFavData();
+              // HomeCubit.get(context).getUserData();
               navigateAndFinish(context, LoginScreen());
             });
           } else {
@@ -65,104 +67,115 @@ class RegisterScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       defaultFormField(
-                          style: TextStyle(
-                              color: AppCubit.get(context).isDark
-                                  ? Colors.white
-                                  : Colors.black),
-                          keyboard_type: TextInputType.name,
-                          controller_type: name,
-                          label_text: "Name",
-                          prefix_icon: Icons.person,
-                          Validate: (nameCheck) {
-                            if (nameCheck!.isEmpty) {
-                              return "Name mustn't be empty";
-                            }
-                            return null;
-                          }),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      defaultFormField(
-                          style: TextStyle(
-                              color: AppCubit.get(context).isDark
-                                  ? Colors.white
-                                  : Colors.black),
-                          keyboard_type: TextInputType.emailAddress,
-                          controller_type: email,
-                          label_text: "Email",
-                          prefix_icon: Icons.email,
-                          Validate: (emailCheck) {
-                            if (emailCheck!.isEmpty) {
-                              return "Email mustn't be empty";
-                            }
-                            return null;
-                          }),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      defaultFormField(
-                        style: TextStyle(
-                            color: AppCubit.get(context).isDark
-                                ? Colors.white
-                                : Colors.black),
-                        keyboard_type: TextInputType.visiblePassword,
-                        controller_type: password,
-                        label_text: "Password",
-                        prefix_icon: Icons.lock,
-                        suffix_icon: cubit.suffix,
-                        isVisible: cubit.passwordVisible,
-                        isPasswordVisible: () {
-                          cubit.changePasswordVisibility();
-                        },
-                        // onSubmit: (value) {
-                        //   if (formKey.currentState!.validate()) {
-                        //     cubit.userRegister(
-                        //         email: email.text,
-                        //         password: password.text,
-                        //         name: name.text,
-                        //         passwordConfiramation: passwordConfiramtion.text);
-                        //   }
-                        // },
-                        Validate: (passwordCheck) {
-                          if (passwordCheck!.isEmpty) {
-                            return "Password mustn't be empty";
+                        controller: name,
+                        keyboardType: TextInputType.name,
+                        label: "Name",
+                        prefix: Icons.person,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Name mustn't be empty!!";
                           }
                           return null;
                         },
+                        radius: 20.0,
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.7),
+                        style: TextStyle(
+                          color: AppCubit.get(context).isDark
+                              ? Colors.grey[200]
+                              : Colors.black.withOpacity(.6),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultFormField(
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        label: "Email Address",
+                        prefix: Icons.email_outlined,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Email Address mustn't be empty!!";
+                          }
+                          return null;
+                        },
+                        radius: 20.0,
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.7),
+                        style: TextStyle(
+                          color: AppCubit.get(context).isDark
+                              ? Colors.grey[200]
+                              : Colors.black.withOpacity(.6),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      defaultFormField(
+                        controller: password,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: cubit.passwordVisible,
+                        suffixPressed: () {
+                          cubit.changePasswordVisibility();
+                        },
+                        label: "Password",
+                        prefix: Icons.lock,
+                        suffix: cubit.suffix,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Password mustn't be empty!!";
+                          }
+                          return null;
+                        },
+                        radius: 20.0,
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.6),
+                        style: TextStyle(
+                            color: AppCubit.get(context).isDark
+                                ? Colors.grey[200]
+                                : Colors.black.withOpacity(.6)),
                       ),
                       SizedBox(
                         height: 30.0,
                       ),
                       defaultFormField(
-                        style: TextStyle(
-                            color: AppCubit.get(context).isDark
-                                ? Colors.white
-                                : Colors.black),
-                        keyboard_type: TextInputType.visiblePassword,
-                        controller_type: passwordConfiramtion,
-                        label_text: "passwordConfiramtion",
-                        prefix_icon: Icons.lock,
-                        suffix_icon: cubit.suffix,
-                        isVisible: cubit.passwordVisible,
-                        isPasswordVisible: () {
+                        controller: passwordConfirmation,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: cubit.passwordVisible,
+                        suffixPressed: () {
                           cubit.changePasswordVisibility();
                         },
-                        onSubmit: (value) {
+                        label: "Password Confirmation",
+                        prefix: Icons.lock,
+                        suffix: cubit.suffix,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "Password mustn't be empty!!";
+                          }
+                          return null;
+                        },
+                        radius: 20.0,
+                        onSubmitted: (value) {
                           if (formKey.currentState!.validate()) {
                             cubit.userRegister(
                                 email: email.text,
                                 password: password.text,
                                 name: name.text,
                                 passwordConfiramation:
-                                    passwordConfiramtion.text);
+                                    passwordConfirmation.text);
                           }
                         },
-                        Validate: (passwordCheck) {
-                          if (passwordCheck!.isEmpty) {
-                            return "Password mustn't be empty";
-                          }
-                          return null;
-                        },
+                        generalWidgetsColor: AppCubit.get(context).isDark
+                            ? Colors.grey[200]
+                            : Colors.black.withOpacity(.6),
+                        style: TextStyle(
+                            color: AppCubit.get(context).isDark
+                                ? Colors.grey[200]
+                                : Colors.black.withOpacity(.6)),
                       ),
                       SizedBox(
                         height: 30.0,
@@ -179,7 +192,7 @@ class RegisterScreen extends StatelessWidget {
                                   password: password.text,
                                   name: name.text,
                                   passwordConfiramation:
-                                      passwordConfiramtion.text);
+                                      passwordConfirmation.text);
                             }
                           },
                         ),
